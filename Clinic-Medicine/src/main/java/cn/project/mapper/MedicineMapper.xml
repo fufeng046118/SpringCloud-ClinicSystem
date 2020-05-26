@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.project.mapper.MedicineMapper">
+    <select id="getAllMedicineType" resultType="medicineType">
+        select * from medicineType
+    </select>
+    
+    <select id="getAllCheckItemType" resultType="checkItemType">
+        select * from checkItemType;
+    </select>
+
+    <select id="getAllMedicine" resultType="medicine">
+        select * from medicine
+        <where>
+            <if test="prescriptionTypeId != null and prescriptionTypeId != ''">
+                and prescriptionTypeId = #{prescriptionTypeId}
+            </if>
+            <if test="medicineTypeId != null and medicineTypeId != ''">
+                and medicineTypeId = #{medicineTypeId}
+            </if>
+            <if test="nameOrPinYin != null and nameOrPinYin != ''">
+                and (medicineName like concat('%',#{nameOrPinYin},'%') or pinYinCode like concat('%',#{nameOrPinYin},'%'))
+            </if>
+        </where>
+    </select>
+    
+    <select id="getAllCheckItem" resultType="checkItem">
+        select * from checkitem c
+        left join checkitemtype ct on ct.id = c.itemTypeId
+        <where>
+            <if test="itemTypeId != null and itemTypeId != ''">
+                and itemTypeId = #{itemTypeId}
+            </if>
+            <if test="nameOrPinYin != null and nameOrPinYin != ''">
+                and (itemName like concat('%',#{nameOrPinYin},'%') or pinYinCode like concat('%',#{nameOrPinYin},'%'))
+            </if>
+        </where>
+    </select>
+
+    <select id="getMedicineUsage" resultType="medicineUsage">
+        select * from medicineusage
+    </select>
+</mapper>

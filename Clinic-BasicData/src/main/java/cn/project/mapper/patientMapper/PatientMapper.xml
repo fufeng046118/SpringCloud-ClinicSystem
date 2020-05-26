@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.project.mapper.patientMapper.PatientMapper">
+    <select id="getPatientById" resultType="patient">
+        select * from patient p
+        left join member m on m.id=p.membershipLevelId
+        where p.id = #{id}
+    </select>
+    <select id="getAllPatient" resultType="patient">
+        select * from patient;
+    </select>
+</mapper>

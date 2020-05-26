@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.project.mapper.additionalFees.AdditionalFeesMapper">
+    <select id="getAllAdditionalFees" resultType="additionalFees">
+        select * from additionalfees
+    </select>
+    <insert id="addAdditionalFees">
+        insert  into `prescriptiondata`.prescription_additionalfees(id,prescriptionId,prescriptionTypeId,additionalFeesId,quantity)
+        values (null,#{p.prescriptionId},#{p.prescriptionTypeId},#{p.additionfeesId},#{p.quantity})
+    </insert>
+</mapper>

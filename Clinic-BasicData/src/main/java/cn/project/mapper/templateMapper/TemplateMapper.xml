@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.project.mapper.templateMapper.TemplateMapper">
+    <resultMap id="getAllTemplateResult" type="template">
+        <id column="id" property="id"></id>
+        <result column="templateName" property="templateName"></result>
+        <result column="templateNo" property="templateNo"></result>
+        <result column="templatePermission" property="templatePermission"></result>
+        <result column="createDate" property="createDate"></result>
+        <result column="templateDescription" property="templateDescription"></result>
+        <association property="prescriptionType" select="getPrescriptionType" column="prescriptionTypeId"></association>
+        <association property="employee" column="createPeopleId" select="getEmployee"></association>
+        <collection property="diagnosisTypeList" column="id" select="getDiagnosisTypeList"></collection>
+    </resultMap>
+    <select id="getAllTemplate" resultMap="getAllTemplateResult">
+        select * from template
+        <where>
+            <if test="prescriptionTypeId != null">
+                and prescriptionTypeId=#{prescriptionTypeId}
+            </if>
+            <if test="templatePermission != null">
+                and templatePermission=#{templatePermission}
+            </if>
+            <if test="templateNoOrName != null and templateNoOrName != ''">
+                and (templateNo like concat('%',#{templateNoOrName},'%') or templateName like concat('%',#{templateNoOrName},'%'))
+            </if>
+        </where>
+    </select>
+    <select id="getPrescriptionType" resultType="prescriptionType">
+        select * from `prescriptiondata`.prescriptionType where id=#{prescriptionTypeId}
+    </select>
+    <select id="getEmployee" resultType="employee">
+        select * from employee
+        where id=#{createPeopleId}
+    </select>
+    <select id="getDiagnosisTypeList" resultType="diagnosisType">
+        select * from diagnosistype d
+        left join template_diagnosistype td on td.diagnosisTypeId=d.id
+        where td.templateId=#{id}
+    </select>
+    <select id="getTemplateById" resultType="template">
+        select * from template where id = #{id}
+    </select>
+
+<!--
+    模板下的处方
+-->
+    <select id="getPrescriptionMedicineX" resultType="prescriptionMedicineX">
+        select w.*,m.medicineName,mu.usageName,pt.prescriptionTypeName from `prescriptiondata`.westernmedicineprescription w
+        left join template_westernmedicineprescription tw
+        on tw.westernMedicinePrescriptionId=w.id
+        left join `medicinedata`.medicine m on w.medicineId=m.id
+        left join `medicinedata`.medicineusage mu on mu.id = w.usageId
+        left join `prescriptiondata`.prescriptiontype pt on pt.id=w.prescriptionTypeId
+        where tw.templateId=#{templateId}
+    </select>
+
+    <select id="getPrescriptionMedicineZ" resultType="prescriptionMedicineZ">
+        select c.*,m.medicineName,mu.usageName,pt.prescriptionTypeName from `prescriptiondata`.chinesemedicineprescription c
+        left join template_chinesemedicineprescription tc
+        on tc.chinesemedicineprescriptionId=c.id
+        left join `medicinedata`.medicine m on c.medicineId=m.id
+        left join `medicinedata`.medicineusage mu on mu.id = c.usageId
+        left join `prescriptiondata`.prescriptiontype pt on pt.id=c.prescriptionTypeId
+        where tc.templateId=#{templateId}
+    </select>
+
+    <select id="getPrescriptionMedicineC" resultType="prescriptionMedicineC">
+        select c.*,ci.itemName as checkItemName,pt.prescriptionTypeName from `prescriptiondata`.checkitemprescription c
+        left join template_checkitemprescription tc
+        on tc.checkItemPrescriptionId=c.id
+        left join `medicinedata`.checkitem ci on ci.id=c.checkItemId
+        left join `prescriptiondata`.prescriptiontype pt on pt.id=c.prescriptionTypeId
+        where tc.templateId=#{templateId}
+    </select>
+</mapper>

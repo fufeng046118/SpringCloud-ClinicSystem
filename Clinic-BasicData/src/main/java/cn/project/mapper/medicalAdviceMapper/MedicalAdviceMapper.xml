@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.project.mapper.medicalAdviceMapper.MedicalAdviceMapper">
+    <select id="getAllMedicalAdvice" resultType="medicalAdvice">
+        select * from medicaladvice
+    </select>
+    <insert id="addMedicalAdvice">
+        insert into `prescriptiondata`.prescription_medicaladvice(id,medicalAdviceId,prescriptionId)
+        values (null,#{medicalAdviceId},#{prescriptionId})
+    </insert>
+</mapper>
