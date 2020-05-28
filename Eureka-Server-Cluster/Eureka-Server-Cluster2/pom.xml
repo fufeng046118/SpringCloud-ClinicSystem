@@ -10,5 +10,29 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>Eureka-Server-Cluster2</artifactId>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
 
+                <configuration>
+                    <!-- 镜像名称  -->
+                    <imageName>${docker.image.prefix}/eureka-server-cluster2</imageName>
+                    <!-- docker远程服务器地址 -->
+                    <dockerHost>http://192.168.0.125:2375</dockerHost>
+                    <!-- Dockerfile文件存放目录 -->
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
