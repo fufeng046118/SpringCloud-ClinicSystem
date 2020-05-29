@@ -5,9 +5,7 @@ import cn.project.utils.Response;
 import cn.project.utils.ResponseEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -24,9 +22,9 @@ public class MedicalAdviceController {
         return new Response(ResponseEnum.SUCCESS).setResponseBody(medicalAdviceService.getAllMedicalAdvice());
     }
 
-    @GetMapping("addMedicalAdvice")
+    @PostMapping("addMedicalAdvice")
     @ApiOperation(value = "新增医嘱")
-    public Response addMedicalAdvice(Integer prescriptionId,String medicalAdvice){
+    public Response addMedicalAdvice(@RequestParam Integer prescriptionId, @RequestParam String medicalAdvice){
         medicalAdvice =medicalAdvice .replace("\"", "");
         if(prescriptionId!=null&&medicalAdvice!=null){
             String[] str = medicalAdvice.split(",");

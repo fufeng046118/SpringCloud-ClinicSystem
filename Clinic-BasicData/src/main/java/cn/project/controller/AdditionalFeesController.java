@@ -6,10 +6,7 @@ import cn.project.utils.Response;
 import cn.project.utils.ResponseEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -29,7 +26,7 @@ public class AdditionalFeesController {
 
     @PostMapping("/addAdditionalFees")
     @ApiOperation(value = "新增附加费用")
-    public Response getAllAdditionalFees(Prescription_AdditionalFees prescription_additionalFees){
+    public Response addAdditionalFees(@RequestBody Prescription_AdditionalFees prescription_additionalFees){
         additionalFeesService.addAdditionalFees(prescription_additionalFees);
         return new Response(ResponseEnum.SUCCESS);
     }

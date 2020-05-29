@@ -5,9 +5,7 @@ import cn.project.utils.Response;
 import cn.project.utils.ResponseEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -24,9 +22,9 @@ public class DiagnosisTypeController {
         return new Response(ResponseEnum.SUCCESS).setResponseBody(diagnosisTypeService);
     }
 
-    @GetMapping("addDiagnosisType")
+    @PostMapping("addDiagnosisType")
     @ApiOperation(value = "新增诊断类型")
-    public Response addDiagnosisType(Integer prescriptionId,String diagnosisType){
+    public Response addDiagnosisType(@RequestParam Integer prescriptionId, @RequestParam String diagnosisType){
         diagnosisType =diagnosisType .replace("\"", "");
         if(diagnosisType!=null&&prescriptionId!=null){
             String[] str = diagnosisType.split(",");

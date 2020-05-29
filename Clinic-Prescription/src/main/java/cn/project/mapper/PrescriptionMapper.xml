@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.project.mapper.PrescriptionMapper">
+    <insert id="addPrescription" keyProperty="id" useGeneratedKeys="true">
+        insert into prescription(id,patientId,consultationTypeId,employeeId,`date`)
+        values (null,#{patientId},#{consultationTypeId},#{employeeId},now())
+    </insert>
+
+
+    <insert id="addPrescriptionMedicineX" useGeneratedKeys="true" keyProperty="id">
+        insert into westernmedicineprescription(id,medicineId,singleDose,usageId,frequency,totalDays,totalDosage,prescriptionTypeId,unitPrice)
+        values (null,#{medicineId},#{singleDose},#{usageId},#{frequency},#{totalDays},#{totalDosage},#{prescriptionTypeId},#{unitPrice})
+    </insert>
+    <insert id="addPrescriptionMedicineZ" useGeneratedKeys="true" keyProperty="id">
+        insert into chinesemedicineprescription(id,medicineId,singleDose,usageId,frequency,totalDays,prescriptionTypeId,agent,amount,unitPrice)
+        values (null,#{medicineId},#{singleDose},#{usageId},#{frequency},#{totalDays},#{prescriptionTypeId},#{agent},#{amount},#{unitPrice})
+    </insert>
+    <insert id="addPrescriptionMedicineC" useGeneratedKeys="true" keyProperty="id">
+        insert into checkitemprescription(id,checkItemId,part,`quantity`,`itemTypeId`,`amount`,`remarks`,`prescriptionTypeId`,`unitPrice`)
+        values (null,#{checkItemId},#{part},#{quantity},#{itemTypeId},#{amount},#{remarks},#{prescriptionTypeId},#{unitPrice})
+    </insert>
+
+
+
+    <insert id="addPrescription_PrescriptionMedicineX">
+        insert into prescription_westernmedicineprescription(id,prescriptionId,westernMedicinePrescriptionId)
+        values (null,#{prescriptionId},#{prescriptionMedicineXId})
+    </insert>
+    <insert id="addPrescription_PrescriptionMedicineZ">
+        insert into prescription_chinesemedicineprescription(id,prescriptionId,chineseMedicinePrescriptionId)
+        values (null,#{prescriptionId},#{prescriptionMedicineZId})
+    </insert>
+    <insert id="addPrescription_PrescriptionMedicineC">
+        insert into prescription_checkitemprescription(id,prescriptionId,checkItemPrescriptionId)
+        values (null,#{prescriptionId},#{prescriptionMedicineCId})
+    </insert>
+</mapper>

@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.8.RELEASE</version>
     </parent>
-    <properties>
-        <java.version>1.8</java.version>
-        <docker.image.prefix>docker</docker.image.prefix>
-    </properties>
-    <groupId>cn.bdqn</groupId>
-    <artifactId>Spring-Cloud-Config</artifactId>
-    <version>1.0-SNAPSHOT</version>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -27,8 +19,20 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <groupId>cn.bdnq</groupId>
+    <artifactId>Spring-Cloud-Config</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <docker.image.prefix>docker</docker.image.prefix>
+    </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-server</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -37,13 +41,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-server</artifactId>
-        </dependency>
     </dependencies>
     <build>
         <plugins>
+            <!-- springboot打包 -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -58,7 +59,7 @@
                     <!-- 镜像名称  -->
                     <imageName>${docker.image.prefix}/spring-cloud-config</imageName>
                     <!-- docker远程服务器地址 -->
-                    <dockerHost>http://192.168.0.125:2375</dockerHost>
+                    <dockerHost>http://192.168.43.125:2375</dockerHost>
                     <!-- Dockerfile文件存放目录 -->
                     <dockerDirectory>src/main/docker</dockerDirectory>
                     <resources>
@@ -72,4 +73,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

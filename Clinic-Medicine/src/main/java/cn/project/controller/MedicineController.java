@@ -22,7 +22,7 @@ public class MedicineController {
     @Resource
     MedicineService medicineService;
 
-    @GetMapping("getMedicines")
+    @PostMapping("getMedicines")
     @ApiOperation(value = "获取所有药品",notes = "根据药品类型、药瓶名称/拼音来筛选药品并进行分页显示")
     public Response getMedicines (Integer prescriptionTypeId,Integer medicineTypeId,String nameOrPinYin,Integer pageNo,Integer pageSize){
         Map<String,Object> map = new HashMap<>();

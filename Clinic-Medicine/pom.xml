@@ -116,6 +116,21 @@
         </dependency>
     </dependencies>
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <!-- springboot打包 -->
             <plugin>
@@ -132,7 +147,7 @@
                     <!-- 镜像名称  -->
                     <imageName>${docker.image.prefix}/clinic-medicine</imageName>
                     <!-- docker远程服务器地址 -->
-                    <dockerHost>http://192.168.0.125:2375</dockerHost>
+                    <dockerHost>http://192.168.43.125:2375</dockerHost>
                     <!-- Dockerfile文件存放目录 -->
                     <dockerDirectory>src/main/docker</dockerDirectory>
                     <resources>

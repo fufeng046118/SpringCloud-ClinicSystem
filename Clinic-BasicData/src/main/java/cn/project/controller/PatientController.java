@@ -6,6 +6,7 @@ import cn.project.utils.ResponseEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,9 +19,9 @@ public class PatientController {
     @Resource
     PatientService patientService;
 
-    @GetMapping("/getPatientById")
+    @GetMapping("/getPatientById/{id}")
     @ApiOperation(value = "根据ID获取患者信息")
-    public Response getAllAdditionalFees(Integer id){
+    public Response getPatientById(@PathVariable Integer id){
         return new Response(ResponseEnum.SUCCESS).setResponseBody(patientService.getPatientById(id));
     }
 

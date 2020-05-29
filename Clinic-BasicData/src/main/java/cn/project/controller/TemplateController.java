@@ -7,10 +7,7 @@ import cn.project.utils.Response;
 import cn.project.utils.ResponseEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -23,8 +20,8 @@ public class TemplateController {
     @Resource
     TemplateService templateService;
     @ApiOperation(value = "获取所有模板",notes = "根据处方类别、处方权限、模板编码/模板名称来筛选模板并进行分页显示")
-    @GetMapping("/getAllTemplate")
-    public Response getAllTemplate(Integer pageNo, Integer pageSize, Integer prescriptionTypeId, Integer templatePermission, String templateNoOrName){
+    @PostMapping("/getAllTemplate")
+    public Response getAllTemplate(@RequestParam Integer pageNo,@RequestParam Integer pageSize,@RequestParam Integer prescriptionTypeId,@RequestParam Integer templatePermission,@RequestParam String templateNoOrName){
         Map<String,Object> map = new HashMap<>();
         map.put("pageNo",(pageNo-1)*pageSize);
         map.put("pageSize",pageSize);
