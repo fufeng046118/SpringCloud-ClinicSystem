@@ -13,7 +13,7 @@ public interface MedicineFeign {
     @PostMapping("medicine/getMedicines")
     public Response getMedicines (@RequestParam Integer prescriptionTypeId, @RequestParam Integer medicineTypeId, @RequestParam String nameOrPinYin, @RequestParam Integer pageNo, @RequestParam Integer pageSize);
 
-    @PostMapping(value = "medicine/getMedicineType/{prescriptionTypeId}")
+    @GetMapping(value = "medicine/getMedicineType/{prescriptionTypeId}")
     public Response getMedicineType(@PathVariable("prescriptionTypeId") Integer prescriptionTypeId);
 
     @GetMapping("medicine/getMedicineUsage")

@@ -42,7 +42,7 @@ public class MedicineController {
         return new Response(ResponseEnum.SUCCESS).setResponseBody(map);
     }
 
-    @PostMapping(value = "/getMedicineType/{prescriptionTypeId}")
+    @GetMapping(value = "/getMedicineType/{prescriptionTypeId}")
     @ApiOperation(value = "获取所有药品类型")
     public Response getMedicineType(@PathVariable("prescriptionTypeId") Integer prescriptionTypeId){
         if(prescriptionTypeId == 1 || prescriptionTypeId == 2){

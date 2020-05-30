@@ -1,15 +1,12 @@
 package cn.project.controller;
 
 import cn.project.entity.Prescription_AdditionalFees;
-import cn.project.utils.HttpClientHelper;
 import cn.project.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @Api(tags = "负责调用附加费用控住器")
