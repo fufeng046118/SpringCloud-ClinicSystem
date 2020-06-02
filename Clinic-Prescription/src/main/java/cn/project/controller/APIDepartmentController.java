@@ -16,7 +16,7 @@ public class APIDepartmentController {
     @Resource
     BasicDataFeign basicDataFeign;
     @GetMapping("/getAllDepartment")
-    @ApiOperation(value = "负责调用基本数据模块中的科室控制器")
+    @ApiOperation(value = "获得所有的科室信息")
     public Response getAdditionalFees(){
         return basicDataFeign.getAllDepartment();
     }

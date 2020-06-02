@@ -1,19 +1,44 @@
 package cn.project.entity;
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 
+import java.io.Serializable;
+@ApiModel(value = "处方药（西）")
+@TableName(value = "westernmedicineprescription")
 public class PrescriptionMedicineX implements Serializable {
+    @ApiModelProperty(value = "主键")
+    @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
+    @ApiModelProperty(value = "药品ID",example = "1")
     private Integer medicineId;
+    @ApiModelProperty(hidden = true)
+    @TableField(exist = false)
     private String medicineName;
+    @ApiModelProperty(value = "单次用量",example = "30g")
     private String singleDose;
+    @ApiModelProperty(value = "用法ID",example = "1")
     private Integer usageId;
+    @ApiModelProperty(hidden = true)
+    @TableField(exist = false)
     private String usageName;
+    @ApiModelProperty(value = "频度",example = "一天一次")
     private String frequency;
+    @ApiModelProperty(value = "总天数",example = "2")
     private Integer totalDays;
+    @ApiModelProperty(value = "总用量",example = "100g")
     private String totalDosage;
+    @ApiModelProperty(value = "处方类型ID",example = "1")
     private Integer prescriptionTypeId;
+    @ApiModelProperty(hidden = true)
+    @TableField(exist = false)
     private String prescriptionTypeName;
+    @ApiModelProperty(value = "单价",example = "500")
     private Long unitPrice;
 
     public Integer getId() {

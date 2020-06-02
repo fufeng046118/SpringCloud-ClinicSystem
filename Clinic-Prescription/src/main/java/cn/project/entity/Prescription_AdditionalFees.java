@@ -1,10 +1,24 @@
 package cn.project.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "处方和附加费用的关联实体类")
+@TableName(value = "prescription_additionalfees")
 public class Prescription_AdditionalFees {
+    @ApiModelProperty(value = "主键ID")
+    @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
+    @ApiModelProperty(example = "1",value = "处方ID")
     private Integer prescriptionId;
+    @ApiModelProperty(example = "1",value = "处方类型ID")
     private Integer prescriptionTypeId;
+    @ApiModelProperty(example = "1",value = "附加费用ID")
     private Integer additionfeesId;
+    @ApiModelProperty(example = "1",value = "数量")
     private Integer quantity;
 
     public Integer getQuantity() {

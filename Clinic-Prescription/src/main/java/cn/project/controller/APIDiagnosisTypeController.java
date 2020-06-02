@@ -19,16 +19,16 @@ public class APIDiagnosisTypeController {
     BasicDataFeign basicDataFeign;
 
     @GetMapping("getAllDiagnosisType")
-    @ApiOperation(value = "负责调用基础数据模块中的诊断控制器(获取所有诊断信息)")
+    @ApiOperation(value = "获得所有的诊断信息")
     public Response getAllDiagnosisType(){
         return basicDataFeign.getAllDiagnosisType();
     }
 
     @PostMapping("addDiagnosis")
-    @ApiOperation(value = "负责调用基础数据模块中的诊断控制器(新增诊断信息)")
+    @ApiOperation(value = "新增诊断信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "prescriptionId",value = "处方ID",required = true),
-            @ApiImplicitParam(name = "diagnosisType",value = "诊断(多个诊断ID)",required = true)
+            @ApiImplicitParam(name = "prescriptionId",value = "处方ID",required = true,defaultValue = "1"),
+            @ApiImplicitParam(name = "diagnosisType",value = "诊断(多个诊断ID,例如1,2,3)",required = true,defaultValue = "1,2,3")
     })
     public Response addDiagnosis(@RequestParam Integer prescriptionId, @RequestParam String diagnosisType){
         diagnosisType = URLEncoder.encode(diagnosisType);

@@ -1,6 +1,5 @@
 package cn.project.controller;
 
-import cn.project.utils.HttpClientHelper;
 import cn.project.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -19,19 +18,19 @@ public class APIMedicalAdviceController {
     BasicDataFeign basicDataFeign;
 
     @GetMapping("getAllMedicalAdvice")
-    @ApiOperation(value = "负责调用基础数据模块中的医嘱控制器(获取所有医嘱信息)")
+    @ApiOperation(value = "获取所有医嘱信息")
     public Response getAllMedicalAdvice(){
         return basicDataFeign.getAllMedicalAdvice();
     }
 
     @PostMapping("addMedicalAdvice")
-    @ApiOperation(value = "负责调用基础数据模块中的医嘱控制器(新增医嘱)")
+    @ApiOperation(value = "新增医嘱")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "prescriptionId",value = "处方ID",required = true),
-            @ApiImplicitParam(name = "medicalAdvice",value = "医嘱(多个医嘱ID)",required = true)
+            @ApiImplicitParam(name = "prescriptionId",value = "处方ID",required = true,defaultValue = "1"),
+            @ApiImplicitParam(name = "medicalAdvice",value = "医嘱(多个医嘱ID,例如1,2,3)",required = true,defaultValue = "1,2,3")
     })
     public Response addDiagnosis(@RequestParam Integer prescriptionId,@RequestParam String medicalAdvice){
         medicalAdvice = URLEncoder.encode(medicalAdvice);
-        return basicDataFeign.addDiagnosisType(prescriptionId, medicalAdvice);
+        return basicDataFeign.addMedicalAdvice(prescriptionId, medicalAdvice);
     }
 }

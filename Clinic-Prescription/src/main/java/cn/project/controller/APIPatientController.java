@@ -1,6 +1,5 @@
 package cn.project.controller;
 
-import cn.project.utils.HttpClientHelper;
 import cn.project.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -20,14 +19,14 @@ public class APIPatientController {
     BasicDataFeign basicDataFeign;
 
     @GetMapping("/getPatientById/{id}")
-    @ApiOperation(value = "负责调用基本数据模块中的患者控制器(根据ID查询患者信息)")
-    @ApiImplicitParam(value = "患者ID",name = "id",required = true)
+    @ApiOperation(value = "根据ID查询患者信息")
+    @ApiImplicitParam(value = "患者ID",name = "id",required = true,defaultValue = "1")
     public Response getPatientById(@PathVariable Integer id){
         return basicDataFeign.getPatientById(id);
     }
 
     @GetMapping("/getAllPatient")
-    @ApiOperation(value = "负责调用基本数据模块中的患者控制器(查询所有患者信息)")
+    @ApiOperation(value = "查询所有患者信息")
     public Response getAllPatient(){
         return basicDataFeign.getAllPatient();
     }

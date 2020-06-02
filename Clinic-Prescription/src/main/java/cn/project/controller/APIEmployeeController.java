@@ -1,6 +1,5 @@
 package cn.project.controller;
 
-import cn.project.utils.HttpClientHelper;
 import cn.project.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -17,8 +16,8 @@ public class APIEmployeeController {
     BasicDataFeign basicDataFeign;
 
     @GetMapping("/getAllEmployee/{id}")
-    @ApiOperation(value = "负责调用基本数据模块中的员工控制器(根据科室ID获取该科室下的员工)")
-    @ApiImplicitParam(name = "id",value = "科室ID",required = true)
+    @ApiOperation(value = "根据科室ID获取该科室下的员工")
+    @ApiImplicitParam(name = "id",value = "科室ID",required = true,defaultValue = "1")
     public Response getAllEmployee(@PathVariable Integer id){
         return basicDataFeign.getAllEmployee(id);
     }

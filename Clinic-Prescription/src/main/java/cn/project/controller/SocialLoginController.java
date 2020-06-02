@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RequestMapping("/social")
-@Controller
+//@Controller
 public class SocialLoginController {
     private static final Map<String, SocialConfig> CONFIG_MAP = new HashMap<>();
     private static final String uaaServerUrl = "http://localhost:8080";

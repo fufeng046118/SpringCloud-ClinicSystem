@@ -16,13 +16,13 @@ import javax.annotation.Resource;
 public class APITemplateController {
     @Resource
     BasicDataFeign basicDataFeign;
-    @ApiOperation(value = "负责调用基本数据模块中的模板控制器(根据条件查询所有模板并分页)")
+    @ApiOperation(value = "根据条件查询所有模板并分页")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query",name = "prescriptionTypeId",value = "处方类型ID(表示该药品属于(西药、中药、检查项目中的哪一种))"),
-            @ApiImplicitParam(paramType = "query",name = "templatePermission",value = "模板权限(0:私有,1:公有)"),
-            @ApiImplicitParam(paramType = "query",name = "templateNoOrName",value = "模板名称或拼音"),
-            @ApiImplicitParam(paramType = "query",name = "pageNo",value = "当前页",required = true),
-            @ApiImplicitParam(paramType = "query",name = "pageSize",value = "每页显示大小",required = true)
+            @ApiImplicitParam(paramType = "query",name = "prescriptionTypeId",value = "处方类型ID(表示该药品属于(西药、中药、检查项目中的哪一种))",defaultValue = "1"),
+            @ApiImplicitParam(paramType = "query",name = "templatePermission",value = "模板权限(0:私有,1:公有)",defaultValue = "1"),
+            @ApiImplicitParam(paramType = "query",name = "templateNoOrName",value = "模板名称或拼音",defaultValue = "感冒处方模板"),
+            @ApiImplicitParam(paramType = "query",name = "pageNo",value = "当前页",required = true,defaultValue = "1"),
+            @ApiImplicitParam(paramType = "query",name = "pageSize",value = "每页显示大小",required = true,defaultValue = "2")
     })
     @PostMapping("/getAllTemplate")
     public Response getAllTemplate(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "2") Integer pageSize, @RequestParam(required = false) Integer prescriptionTypeId, @RequestParam(required = false) Integer templatePermission, @RequestParam(required = false) String templateNoOrName){
@@ -30,8 +30,8 @@ public class APITemplateController {
     }
 
     @GetMapping("/getTemplateDetails/{id}")
-    @ApiOperation(value = "负责调用基本数据模块中的模板控制器(根据模板ID获取模板下的处方详情)")
-    @ApiImplicitParam(paramType = "query",value = "模板ID",name = "id",required = true)
+    @ApiOperation(value = "根据模板ID获取模板下的处方详情")
+    @ApiImplicitParam(paramType = "query",value = "模板ID",name = "id",required = true,defaultValue = "1")
     public Response getTemplateDetails(@PathVariable Integer id){
         return basicDataFeign.getTemplateById(id);
     }

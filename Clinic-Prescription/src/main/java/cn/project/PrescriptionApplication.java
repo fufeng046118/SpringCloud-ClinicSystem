@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 @MapperScan(basePackages = "cn.project.mapper")
 @EnableDiscoveryClient
 @EnableFeignClients
+@EnableSwagger2
 public class PrescriptionApplication {
     public static void main(String[] args) {
         SpringApplication.run(PrescriptionApplication.class,args);
