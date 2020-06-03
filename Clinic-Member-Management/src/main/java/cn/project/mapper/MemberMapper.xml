@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.project.mapper.MemberMapper">
+    <resultMap id="result" type="member">
+        <result property="id" column="id"></result>
+        <result property="memberCardNo" column="memberCardNo"></result>
+        <result property="memberLevelId" column="memberLevelId"></result>
+        <result property="name" column="name"></result>
+        <result property="mobile" column="mobile"></result>
+        <result property="totalConsumption" column="totalConsumption"></result>
+        <result property="balance" column="balance"></result>
+        <result property="totalStoredValue" column="totalStoredValue"></result>
+        <result property="integral" column="integral"></result>
+        <result property="cardOpeningDate" column="cardOpeningDate"></result>
+        <result property="expireDate" column="expireDate"></result>
+        <result property="MemberStatus" column="MemberStatus"></result>
+        <result property="createTime" column="createTime"></result>
+        <result property="modifyTime" column="modifyTime"></result>
+        <association property="level" column="memberLevelId" select="selectLevel" javaType="level"></association>
+    </resultMap>
+    <select id="selectMemberByMap" resultMap="result">
+        SELECT * FROM (
+            SELECT TMP.*, ROWNUM ROW_ID FROM (
+                SELECT * FROM MEMBER
+                    <where>
+                        <if test="memberLevelId != null">
+                            and memberLevelId = #{memberLevelId}
+                        </if>
+                        <if test="cardOpeningDate != null">
+                            and cardOpeningDate &gt;= TO_DATE(#{cardOpeningDate},'yyyy-MM-dd')
+                        </if>
+                        <if test="expireDate != null">
+                            and expireDate &lt;= TO_DATE(#{expireDate},'yyyy-MM-dd')
+                        </if>
+                        <if test="str != null and str != ''">
+                            and (NAME like '%' || #{str} || '%' or memberCardNo like '%' || #{str} || '%' or mobile like '%' || #{str} || '%')
+                        </if>
+                    </where>
+            ) TMP WHERE ROWNUM &lt;=#{pageSize}
+        ) WHERE ROW_ID &gt;#{pageNo}
+    </select>
+
+    <select id="selectLevel" resultType="level">
+        select * from "LEVEL"
+        where ID = #{memberLevelId}
+    </select>
+</mapper>
