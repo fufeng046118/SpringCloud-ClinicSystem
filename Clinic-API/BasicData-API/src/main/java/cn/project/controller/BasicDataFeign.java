@@ -1,12 +1,13 @@
 package cn.project.controller;
 
 import cn.project.config.BasicDataFeignFallback;
+import cn.project.config.FeignConfig;
 import cn.project.entity.Prescription_AdditionalFees;
 import cn.project.utils.Response;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(value = "Clinic-BasicData",fallback = BasicDataFeignFallback.class)
+@FeignClient(value = "Clinic-BasicData",fallback = BasicDataFeignFallback.class,configuration = {FeignConfig.class})
 public interface BasicDataFeign {
     //附加费用
     @GetMapping("additionalFees/getAllAdditionalFees")

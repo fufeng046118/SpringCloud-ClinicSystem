@@ -1,0 +1,13 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="cn.project.entity">
+    <class name="cn.project.entity.PrescriptionType" table="SCOTT.PRESCRIPTIONTYPE">
+        <id name="id">
+            <generator class="sequence">
+                <param name="sequence">
+                    PRESCRIPTIONTYPE_SEQUENCE
+                </param>
+            </generator>
+        </id>
+        <property name="prescriptionTypeName" type="string" column="PRESCRIPTIONTYPENAME" />
+    </class>
+</hibernate-mapping>

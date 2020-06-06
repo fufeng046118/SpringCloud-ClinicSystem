@@ -1,0 +1,24 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="cn.project.entity">
+    <class name="cn.project.entity.Medicine" table="SCOTT.MEDICINE">
+        <id name="id">
+            <generator class="sequence">
+                <param name="sequence">
+                    MEDICINE_SEQUENCE
+                </param>
+            </generator>
+        </id>
+        <property name="medicineNo" type="string" column="MEDICINENO" />
+        <property name="barCode" type="string" column="BARCODE" />
+        <property name="medicineName" type="string" column="MEDICINENAME" />
+        <property name="pinYinCode" type="string" column="PINYINCODE" />
+        <many-to-one name="manufacturer" class="cn.project.entity.Manufacturer" column="MANUFACTURERID"/>
+        <property name="medicineSpecifications" type="string" column="MEDICINESPECIFICATIONS" />
+        <property name="medicineStatus" type="int" column="MEDICINESTATUS" />
+        <property name="medicineDescription" type="string" column="MEDICINEDESCRIPTION" />
+        <property name="purchasePrice" type="double" column="PURCHASEPRICE"/>
+        <property name="retailPrice"  type="double" column="RETAILPRICE"/>
+        <property name="createTime"  type="java.util.Date" column="CREATETIME"/>
+        <many-to-one name="prescriptionType" class="cn.project.entity.PrescriptionType" column="PRESCRIPTIONTYPEID"/>
+    </class>
+</hibernate-mapping>

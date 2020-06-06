@@ -1,0 +1,28 @@
+server:
+  port: 7000
+spring:
+  application:
+    name: uaa-server
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://root:123@clinic:7001/eureka/,http://root:123@clinic:7002/eureka/,http://root:123@clinic:7003/eureka/
+logging:
+  level:
+    cn:
+      his2: debug
+# JWT
+jwt:
+  header: Authorization
+  #使用密码加密的密码（本项目未使用）
+  secret: mySecret
+  #token有效期一天
+  expiration: 86400
+  tokenHead: "Bearer "
+  #解密用的公钥
+  publicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAubaU1FhehBtgYWz1nFlaybYjWfxNXbsJmcWMNrUWmzv/YKcbV7Sy/C8ep+5MT/yWuXKR7yrmb+TrNs7dii7FKNyVXBC4BZXemc1sVMDp4jcRyrpvjyamdazrLup8Zfq4aH63Tu5vevcV5kos+67ujg7clThvaNxwpp+t4xxh0B4RryhkOboexZOLlo9i99TWZlQjuctIMGxJPCEXD+caOn1yqbFnh8M+vxlopZaqj6xexau0lTPeWEZIjndz92Ae4gDuzSgLmU3FlRcdbS1hU0rUoup4cmIjNYmwTiOQZEZaG/lN58iOXnSTY0J9aPav0S9MZqMHv+8qi03KeDCdxQIDAQAB
+#mybatis:
+#  type-aliases-package: cn.his2.server.uaa.pojo.po
