@@ -5,17 +5,8 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
-    <constant name="struts.enable.DynamicMethodInvocation" value="false"></constant>
-    <constant name="struts.devMode" value="true"></constant>
-
     <package name="default" namespace="/" extends="struts-default">
-        <action name="medicine-*" class="cn.project.action.MedicineAction" method="{1}">
-            <result name="list">/WEB-INF/views/medicineList.jsp</result>
-        </action>
-    </package>
-
-    <package name="sad" namespace="/name" extends="struts-default">
-        <action name="name-*" class="cn.project.action.UserAction" method="{1}">
+        <action name="medicine" class="medicineAction" method="list">
             <result name="list">/WEB-INF/views/medicineList.jsp</result>
         </action>
     </package>

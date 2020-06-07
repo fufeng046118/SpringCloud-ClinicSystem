@@ -9,7 +9,7 @@
                             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
                             http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-        <property name="url" value="jdbc:oracle:thin:@192.168.43.125:1521:orcl"></property>
+        <property name="url" value="jdbc:oracle:thin:@192.168.0.125:1521:orcl"></property>
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
         <property name="username" value="scott"></property>
         <property name="password" value="046118"></property>
@@ -62,7 +62,7 @@
         <property name="medicineDao" ref="medicineDao"></property>
     </bean>
 
-    <bean class="cn.project.action.MedicineAction" id="userZzAction" scope="prototype">
+    <bean class="cn.project.action.MedicineAction" id="medicineAction" scope="prototype">
         <property name="medicineService" ref="medicineService"></property>
     </bean>
 </beans>

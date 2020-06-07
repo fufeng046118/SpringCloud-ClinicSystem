@@ -17,6 +17,24 @@ public class Medicine {
     private Manufacturer manufacturer;
     private Long stock;
     private Date createTime;
+/*    private int prescriptionTypeId;
+    private int name;*/
+
+/*    public int getName() {
+        return name;
+    }
+
+    public void setName(int name) {
+        this.name = name;
+    }
+
+    public int getPrescriptionTypeId() {
+        return prescriptionTypeId;
+    }
+
+    public void setPrescriptionTypeId(int prescriptionTypeId) {
+        this.prescriptionTypeId = prescriptionTypeId;
+    }*/
 
     public Integer getId() {
         return id;

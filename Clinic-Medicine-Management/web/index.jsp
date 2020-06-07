@@ -11,6 +11,6 @@
     <title>$Title$</title>
   </head>
   <body>
-  <a href="medicine-list">显示所有用户数据</a>
+  <a href="medicine">显示所有用户数据</a>
   </body>
 </html>
