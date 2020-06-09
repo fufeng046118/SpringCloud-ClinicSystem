@@ -1,8 +1,9 @@
 package cn.project.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Medicine {
+public class Medicine implements Serializable {
     private Integer id;
     private String medicineNo;
     private String barCode;
@@ -35,6 +36,26 @@ public class Medicine {
     public void setPrescriptionTypeId(int prescriptionTypeId) {
         this.prescriptionTypeId = prescriptionTypeId;
     }*/
+
+    @Override
+    public String toString() {
+        return "Medicine{" +
+                "id=" + id +
+                ", medicineNo='" + medicineNo + '\'' +
+                ", barCode='" + barCode + '\'' +
+                ", medicineName='" + medicineName + '\'' +
+                ", pinYinCode='" + pinYinCode + '\'' +
+                ", prescriptionType=" + prescriptionType +
+                ", medicineSpecifications='" + medicineSpecifications + '\'' +
+                ", medicineStatus=" + medicineStatus +
+                ", medicineDescription='" + medicineDescription + '\'' +
+                ", purchasePrice=" + purchasePrice +
+                ", retailPrice=" + retailPrice +
+                ", manufacturer=" + manufacturer +
+                ", stock=" + stock +
+                ", createTime=" + createTime +
+                '}';
+    }
 
     public Integer getId() {
         return id;

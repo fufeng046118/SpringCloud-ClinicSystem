@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="cn.project.entity.InStock" table="INSTOCK" schema="SCOTT">
+        <id name="id" column="ID" type="java.lang.Long"/>
+        <property name="inStockNo" column="INSTOCKNO" type="java.lang.String"/>
+        <property name="type" column="TYPE" type="int"/>
+        <property name="employeeId" column="EMPLOYEEID" type="int"/>
+        <property name="purchasePrice" column="PURCHASEPRICE" type="double"/>
+        <property name="price" column="PRICE" type="double"/>
+        <property name="makeOrderId" column="MAKEORDERID" type="int"/>
+        <property name="statusId" column="STATUSID" type="int"/>
+        <property name="auditId" column="AUDITID" type="int"/>
+        <property name="auditDate" column="AUDITDATE" type="java.util.Date"/>
+        <property name="mark" column="MARK" type="java.lang.String"/>
+        <property name="createDate" type="java.util.Date" column="CREATEDATE"/>
+        <property name="manufacturerId" column="MANUFACTURERID" type="int"/>
+        <many-to-one name="manufacturer" class="cn.project.entity.Manufacturer" column="MANUFACTURERID" insert="false" update="false"/>
+        <many-to-one name="audit" class="cn.project.entity.Employee" column="AUDITID" insert="false" update="false"/>
+        <many-to-one name="makeOrder" class="cn.project.entity.Employee" column="MAKEORDERID" insert="false" update="false"/>
+        <many-to-one name="employee" class="cn.project.entity.Employee" column="EMPLOYEEID" insert="false" update="false"/>
+        <many-to-one name="instocktype" class="cn.project.entity.InStockType" column="TYPE" insert="false" update="false"/>
+    </class>
+</hibernate-mapping>

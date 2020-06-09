@@ -5,9 +5,26 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
-    <package name="default" namespace="/" extends="struts-default">
+    <package name="default" extends="struts-default">
         <action name="medicine" class="medicineAction" method="list">
-            <result name="list">/WEB-INF/views/medicineList.jsp</result>
+            <result name="success">/WEB-INF/views/medicineList.jsp</result>
         </action>
     </package>
+
+    <package name="inStock" extends="struts-default">
+        <action name="inStock" class="inStockAction" method="getAllInStock">
+            <result name="success">/WEB-INF/views/inStockList.jsp</result>
+        </action>
+        <action name="showInStockInfoById" class="inStockAction" method="showInStockInfoById">
+            <result name="success">/WEB-INF/views/showInStockInfo.jsp</result>
+        </action>
+    </package>
+
+    <!--<package name="json" extends="json-default" namespace="/json">
+        <action name="updateStatus" class="medicineAction" method="updateStatus">
+            <result type="json">
+                <param name="root">n</param>
+            </result>
+        </action>
+    </package>-->
 </struts>

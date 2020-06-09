@@ -1,8 +1,18 @@
 package cn.project.entity;
 
-public class Manufacturer {
+import java.io.Serializable;
+
+public class Manufacturer implements Serializable {
     private Integer id;
     private String name;
+
+    @Override
+    public String toString() {
+        return "Manufacturer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 
     public Integer getId() {
         return id;

@@ -45,24 +45,40 @@
         </tx:attributes>
     </tx:advice>
 
-    <aop:config>
+    <aop:config proxy-target-class="true">
         <aop:pointcut id="allServices"
                       expression="execution(* cn.project.service.*.*(..))"/>
         <aop:advisor advice-ref="transactionInterceptor" pointcut-ref="allServices"/>
     </aop:config>
 
 
+    <!--  bean  -->
     <bean class="cn.project.entity.Medicine" id="medicine" scope="prototype"></bean>
+    <bean class="cn.project.entity.vo.MedicineVO" id="medicineVO" scope="prototype"></bean>
 
-    <bean class="cn.project.dao.MedicineDao" id="medicineDao">
+    <bean class="cn.project.dao.MedicineDaoImpl" id="medicineDao">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
 
-    <bean class="cn.project.service.MedicineService" id="medicineService">
+    <bean class="cn.project.service.MedicineServiceImpl" id="medicineService">
         <property name="medicineDao" ref="medicineDao"></property>
     </bean>
 
     <bean class="cn.project.action.MedicineAction" id="medicineAction" scope="prototype">
         <property name="medicineService" ref="medicineService"></property>
+        <property name="medicineVO" ref="medicineVO"></property>
+    </bean>
+
+    <!-- inStock -->
+    <bean class="cn.project.dao.InStockDaoImpl" id="inStockDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean class="cn.project.service.InStockServiceImpl" id="inStockService">
+        <property name="inStockDao" ref="inStockDao"/>
+    </bean>
+    <bean class="cn.project.entity.vo.InStockVO" id="inStockVO"></bean>
+    <bean class="cn.project.action.InStockAction" id="inStockAction">
+        <property name="inStockService" ref="inStockService"/>
+        <property name="inStockVO" ref="inStockVO"/>
     </bean>
 </beans>

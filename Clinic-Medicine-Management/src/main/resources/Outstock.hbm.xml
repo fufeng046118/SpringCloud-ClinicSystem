@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="cn.project.entity.Outstock" table="OUTSTOCK" schema="SCOTT">
+        <id name="id">
+            <column name="ID" sql-type="number(11)" precision="11"/>
+        </id>
+        <property name="outstockno">
+            <column name="OUTSTOCKNO" sql-type="varchar2(50)" length="50"/>
+        </property>
+        <property name="type">
+            <column name="TYPE" sql-type="number(11)" precision="11"/>
+        </property>
+        <property name="employeeid">
+            <column name="EMPLOYEEID" sql-type="number(11)" precision="11"/>
+        </property>
+        <property name="purchaseprice">
+            <column name="PURCHASEPRICE" sql-type="float(*)" precision="2147483646"/>
+        </property>
+        <property name="price">
+            <column name="PRICE" sql-type="float(*)" precision="2147483646"/>
+        </property>
+        <property name="makeorderid">
+            <column name="MAKEORDERID" sql-type="number(11)" precision="11"/>
+        </property>
+        <property name="statusid">
+            <column name="STATUSID" sql-type="number(11)" precision="11"/>
+        </property>
+        <property name="auditid">
+            <column name="AUDITID" sql-type="number(11)" precision="11" not-null="true"/>
+        </property>
+        <property name="auditdate">
+            <column name="AUDITDATE" sql-type="date" not-null="true"/>
+        </property>
+        <property name="mark">
+            <column name="MARK" sql-type="varchar2(50)" length="50" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

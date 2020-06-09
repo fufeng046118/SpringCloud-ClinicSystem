@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="S" uri="/struts-tags" %>
 <html>
 <head>
     <title>Title</title>
@@ -28,7 +29,7 @@
                 <span class="icon-bar">s</span>
                 <span class="icon-bar">ss</span>
             </button>
-            <a class="navbar-brand" href="medicine">药品信息维护</a>
+            <a class="navbar-brand" href="medicine">入库管理</a>
         </div>
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav">
@@ -56,35 +57,33 @@
 
 
 <%-- 搜索栏 --%>
-<div style="height: 90px">
-    <form role="form" action="medicine" method="post">
-        <input name="medicineVO.pageNo" type="hidden" id="pageNo">
+<div style="height: 90px;margin-left: 290px">
+    <form role="form" action="inStock" method="post">
+        <input name="inStockVO.pageNo" type="hidden" id="pageNo">
     <div class="form-group">
 
         <div class="col-lg-3" style="display: inline-block;width: 300px">
-            <input type="text" class="form-control" placeholder="输入药品名称/编码/生产厂家" name="medicineVO.name" value="${request.name}">
+            <input type="text" class="form-control" placeholder="输入入库单号/供应商" name="inStockVO.name" value="${request.name}">
         </div>
 
         <div class="col-sm-6">
-            <label class="control-label">处方类别</label>
-            <select class="form-control" style="width: 90px;display: inline-block;margin-right: 20px" name="medicineVO.prescriptionTypeId">
+            <label class="control-label">审核状态</label>
+            <select class="form-control" style="width: 130px;display: inline-block;margin-right: 20px" name="inStockVO.statusId">
                 <option value="">全部</option>
-                <option value="1" <s:if test="#request.prescriptionTypeId == 1">selected</s:if>>西/成药</option>
-                <option value="2" <s:if test="#request.prescriptionTypeId == 2">selected</s:if>>中药</option>
+                <option value="1" <s:if test="#request.statusId == 1">selected</s:if>>未审核</option>
+                <option value="2" <s:if test="#request.statusId == 2">selected</s:if>>审核已通过</option>
+                <option value="3" <s:if test="#request.statusId == 3">selected</s:if>>审核未通过</option>
             </select>
-            <label class="control-label">药品状态</label>
-            <select class="form-control" style="width: 90px;display: inline-block;margin-right: 20px" name="medicineVO.medicineStatus">
+            <label class="control-label">入库类型</label>
+            <select class="form-control" style="width: 90px;display: inline-block;margin-right: 20px" name="inStockVO.type">
                 <option value="">全部</option>
-                <option value="1" <s:if test="#request.medicineStatus == 1">selected</s:if>>启用</option>
-                <option value="0" <s:if test="#request.medicineStatus == 0">selected</s:if>>停用</option>
+                <S:iterator var="inStockType" value="#request.inStockTypeList">
+                    <option value="${inStockType.id}" <s:if test="#inStockType.id == #request.type">selected</s:if>>${inStockType.typeName}</option>
+                </S:iterator>
             </select>
-            <label class="control-label">创建时间</label>
-            <input type="date" name="medicineVO.startCreateTime" value="<s:date name="#request.startCreateTime" format="yyyy-MM-dd" />" class="form-control" style="width: 150px;display: inline-block;margin-left: 10px">
-            <label class="control-label">至</label>
-            <input type="date" name="medicineVO.endCreateTime" value="<s:date name="#request.endCreateTime" format="yyyy-MM-dd" />" class="form-control" style="width: 150px;display: inline-block;position: absolute;left: 610px">
         </div>
     </div>
-        <div id="myButtons3" class="bs-example" style="position: absolute;left: 1100px">
+        <div id="myButtons3" class="bs-example" style="position: absolute;left: 1000px">
             <button type="button" class="btn btn-primary"
                     data-loading-text="Loading...">查询
             </button>
@@ -99,49 +98,53 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <td>ID</td>
-                <td>药品编码</td>
-                <td>药品名称</td>
-                <td>规格</td>
-                <td>类别</td>
-                <td>采购价</td>
-                <td>销售价</td>
-                <td>生产厂家</td>
-                <td>状态</td>
+                <td>序号</td>
+                <td>入库单号</td>
+                <td>入库类型</td>
+                <td>供应商名称</td>
+                <td>制单人员</td>
+                <td>采购金额</td>
+                <td>零售金额</td>
+                <td>入库人员</td>
                 <td>创建时间</td>
+                <td>审核状态</td>
                 <td>操作</td>
             </tr>
             </thead>
             <tbody>
             <s:if test="#request.page.list == null || #request.page.list.size() == 0">
                 <tr>
-                    <td colspan="11" align="center"><h2>没有该药品信息</h2></td>
+                    <td colspan="11" align="center"><h2>没有该入库信息</h2></td>
                 </tr>
             </s:if>
             <s:else>
-                <s:iterator value="#request.page.list">
+                <s:iterator value="#request.page.list" var="inStock">
                     <tr>
-                        <td>${id}</td>
-                        <td>${medicineNo}</td>
-                        <td>${medicineName}</td>
-                        <td>${medicineSpecifications}</td>
-                        <td>${prescriptionType.prescriptionTypeName}</td>
-                        <td>${purchasePrice}</td>
-                        <td>${retailPrice}</td>
-                        <td>${manufacturer.name}</td>
-                        <td><s:if test="#request.medicineStatus == 1"><span style="color: springgreen">启用</span></s:if><s:else><span style="color: red">停用</span></s:else></td>
-                        <td>${createTime}</td>
+                        <td>${inStock.id}</td>
+                        <td>${inStock.inStockNo}</td>
+                        <td>${inStock.instocktype.typeName}</td>
+                        <td>${inStock.manufacturer.name}</td>
+                        <td>${inStock.makeOrder.eName}</td>
+                        <td>${inStock.purchasePrice}</td>
+                        <td>${inStock.price}</td>
+                        <td>${inStock.employee.eName}</td>
+                        <td>${inStock.createDate}</td>
+                        <td>
+                            <s:if test="#inStock.statusId == 1"><span style="color: #999999">未审核</span></s:if>
+                            <s:if test="#inStock.statusId == 2"><span style="color: springgreen">审核已通过</span></s:if>
+                            <s:if test="#inStock.statusId == 3"><span style="color: red">审核未通过</span></s:if>
+                        </td>
                         <td>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">选择
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="javascript:void(0)">编辑</a></li>
+                                    <li><a href="javascript:void(0)"><s:if test="#inStock.statusId == 1">编辑</s:if><s:else>查看</s:else></a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#">复制</a></li>
+                                    <li><a href="javascript:void(0)">删除</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="javascript:void(0)" onclick="javascript:updateStatus(${id})">停用</a></li>
+                                    <li><a href="javascript:void(0)">再次入库</a></li>
                                 </ul>
                             </div>
                         </td>
