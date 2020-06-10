@@ -58,11 +58,24 @@ public class InStockAction extends ActionSupport implements RequestAware {
 
     //查看入库详情
     public String showInStockInfoById(){
-        List<InStockMedicine> allInStockMedicineById = inStockService.getAllInStockMedicineById(inStockVO.getInStockId());
-        InStock inStockById = inStockService.getInStockById(inStockVO.getInStockId());
-        allInStockMedicineById.forEach(System.out::println);
-        System.out.println(inStockById);
+        List<InStockMedicine> inStockMedicineList = inStockService.getAllInStockMedicineById(inStockVO.getInStockId());
+        InStock inStock = inStockService.getInStockById(inStockVO.getInStockId());
+        request.put("inStock",inStock);
+        request.put("inStockMedicineList",inStockMedicineList);
         return SUCCESS;
     }
 
+    //删除入库药品
+    public String deleteInStockById(){
+        inStockService.deleteInStockById(inStockVO.getInStockId());
+        return SUCCESS;
+    }
+
+    //新增入库记录
+    public String addInStock(){
+        request.put("employeeList",inStockService.getAllEmployee());
+        request.put("inStockTypeList",inStockService.getInStockType());
+        request.put("manufacturerList",inStockService.getAllManufacturer());
+        return SUCCESS;
+    }
 }

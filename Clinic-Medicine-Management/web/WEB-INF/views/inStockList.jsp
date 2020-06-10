@@ -16,6 +16,17 @@
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="js/common.js"></script>
+    <script src="js/component.js"></script>
+    <script>
+        function del(id) {
+            Ewin.confirm({ message: "确认要删除选择的数据吗？" }).on(function (e) {
+                if (!e) {
+                    return;
+                }
+                location.href="http://localhost:8080/Clinic/deleteInStockById?inStockVO.inStockId="+id;
+            });
+        }
+    </script>
 </head>
 <body>
 <%-- 导航栏--%>
@@ -35,18 +46,14 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        Operations<b class="caret"></b>
+                        其他管理<b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="#">入库管理</a></li>
                         <li class="divider"></li>
                         <li><a href="#">出库管理</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">库存管理</a></li>
-                        <li class="divider"></li>
                         <li><a href="#">库存盘点</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">药品调价</a></li>
                     </ul>
                 </li>
             </ul>
@@ -140,9 +147,9 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="javascript:void(0)"><s:if test="#inStock.statusId == 1">编辑</s:if><s:else>查看</s:else></a></li>
+                                    <li><s:if test="#inStock.statusId == 1"><a href="javascript:void(0)">编辑</a></s:if><s:else><a href="showInStockInfoById?inStockVO.inStockId=${inStock.id}">查看</a></s:else></li>
                                     <li class="divider"></li>
-                                    <li><a href="javascript:void(0)">删除</a></li>
+                                    <li><a href="javascript:void(0)" onclick="del(${inStock.id})">删除</a></li>
                                     <li class="divider"></li>
                                     <li><a href="javascript:void(0)">再次入库</a></li>
                                 </ul>

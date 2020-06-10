@@ -7,5 +7,4 @@ import java.util.Map;
 
 public interface MedicineDao {
     List<Medicine> getAllMedicineByMap(Map<String,Object> map);
-    int updateStatus(int id);
 }

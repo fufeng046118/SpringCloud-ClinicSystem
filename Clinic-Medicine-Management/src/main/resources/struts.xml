@@ -5,9 +5,11 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
-    <package name="default" extends="struts-default">
+    <package name="json" extends="json-default">
         <action name="medicine" class="medicineAction" method="list">
-            <result name="success">/WEB-INF/views/medicineList.jsp</result>
+            <result type="json" name="success">
+                <param name="root">medicineList</param>
+            </result>
         </action>
     </package>
 
@@ -18,13 +20,11 @@
         <action name="showInStockInfoById" class="inStockAction" method="showInStockInfoById">
             <result name="success">/WEB-INF/views/showInStockInfo.jsp</result>
         </action>
-    </package>
-
-    <!--<package name="json" extends="json-default" namespace="/json">
-        <action name="updateStatus" class="medicineAction" method="updateStatus">
-            <result type="json">
-                <param name="root">n</param>
-            </result>
+        <action name="deleteInStockById" class="cn.project.action.InStockAction" method="deleteInStockById">
+            <result name="success" type="redirect">inStock</result>
         </action>
-    </package>-->
+        <action name="addInStock" class="cn.project.action.InStockAction" method="addInStock">
+            <result name="success">/WEB-INF/views/addInStockInfo.jsp</result>
+        </action>
+    </package>
 </struts>

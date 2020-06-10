@@ -52,4 +52,20 @@ public class InStockServiceImpl implements InStockService {
     public List<InStockMedicine> getAllInStockMedicineById(int id) {
         return inStockDao.getAllInStockMedicineById(id);
     }
+
+    @Override
+    public int deleteInStockById(int id) {
+        inStockDao.deleteInStockMedicineById(id);
+        return inStockDao.deleteInStockById(id);
+    }
+
+    @Override
+    public List<Manufacturer> getAllManufacturer() {
+        return inStockDao.getAllManufacturer();
+    }
+
+    @Override
+    public List<Employee> getAllEmployee() {
+        return inStockDao.getAllEmployee();
+    }
 }

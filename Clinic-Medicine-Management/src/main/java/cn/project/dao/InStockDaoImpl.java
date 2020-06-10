@@ -1,8 +1,6 @@
 package cn.project.dao;
 
-import cn.project.entity.InStock;
-import cn.project.entity.InStockMedicine;
-import cn.project.entity.InStockType;
+import cn.project.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -69,6 +67,28 @@ public class InStockDaoImpl implements InStockDao {
     public List<InStockMedicine> getAllInStockMedicineById(int id) {
         String hql = "from InStockMedicine ism left outer join fetch ism.medicine left outer join fetch ism.medicine where ism.inStockId = ?";
         return getSession().createQuery(hql).setParameter(0,id).list();
+    }
+
+    @Override
+    public int deleteInStockById(int id) {
+        String hql = "delete from InStock i where i.id="+id;
+        return getSession().createQuery(hql).executeUpdate();
+    }
+
+    @Override
+    public int deleteInStockMedicineById(int id) {
+        String hql = "delete from InStockMedicine ism where ism.inStockId = "+id;
+        return getSession().createQuery(hql).executeUpdate();
+    }
+
+    @Override
+    public List<Manufacturer> getAllManufacturer() {
+        return getSession().createQuery("from Manufacturer").list();
+    }
+
+    @Override
+    public List<Employee> getAllEmployee() {
+        return getSession().createQuery("from Employee").list();
     }
 
     private StringBuffer common(Map<String,Object> map,List<Object> list){
