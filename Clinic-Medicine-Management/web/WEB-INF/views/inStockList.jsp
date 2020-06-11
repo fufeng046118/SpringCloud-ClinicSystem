@@ -92,8 +92,9 @@
     </div>
         <div id="myButtons3" class="bs-example" style="position: absolute;left: 1000px">
             <button type="button" class="btn btn-primary"
-                    data-loading-text="Loading...">查询
+                    data-loading-text="Loading..." style="margin-left: 20px">查询
             </button>
+            <button type="button" class="btn btn-primary" onclick="location.href='toAddInStock'">新增入库</button>
         </div>
     </form>
 </div>
@@ -147,7 +148,7 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><s:if test="#inStock.statusId == 1"><a href="javascript:void(0)">编辑</a></s:if><s:else><a href="showInStockInfoById?inStockVO.inStockId=${inStock.id}">查看</a></s:else></li>
+                                    <li><s:if test="#inStock.statusId == 1"><a href="showInStockInfoById?inStockVO.inStockId=${inStock.id}">编辑</a></s:if><s:else><a href="showInStockInfoById?inStockVO.inStockId=${inStock.id}">查看</a></s:else></li>
                                     <li class="divider"></li>
                                     <li><a href="javascript:void(0)" onclick="del(${inStock.id})">删除</a></li>
                                     <li class="divider"></li>

@@ -21,6 +21,11 @@
                 $('#myModal').modal();
             });
 
+            $("#myModal").on("hide.bs.modal",function () {
+                $("[type=checkbox]").prop("checked",false);
+                sum();
+            });
+
             $("#myButtons3").click(function () {
                 medicineList($("[name=name]").val(),$("[name=prescriptionTypeId]").val());
             })
@@ -68,7 +73,7 @@
                     "        <td>"+obj.find("td:eq(2)").html()+"</td>\n" +
                     "        <td>"+obj.find("td:eq(3)").html()+"</td>\n" +
                     "        <td>"+obj.find("td:eq(8)").html()+"</td>\n" +
-                    "        <td><input type=\"text\" class=\"form-control jiSuan\" name=\"count\" style=\"width: 70px;\"></td>\n" +
+                    "        <td><input type=\"text\" class=\"form-control jiSuan\" name=\"count\" style=\"width: 70px;\" value='1'></td>\n" +
                     "        <td class='purchasePrice'>"+obj.find("td:eq(6)").html()+"</td>\n" +
                     "        <td class='retailPrice'>"+obj.find("td:eq(7)").html()+"</td>\n" +
                     "        <td><input type=\"text\" class=\"form-control\" name=\"inStockVO.name\" style=\"width: 110px;\"></td>\n" +
@@ -78,7 +83,6 @@
                     "    </tr>";
             });
             $("#x1").append(html);
-
             $("[name=count]").on("blur",function () {
                 var obj = $(this).parent().parent();
                 var price1 = obj.find(".purchasePrice").html();
@@ -86,17 +90,49 @@
                 var count = $(this).val();
                 obj.find(".purchasePrice1").html(count * price1);
                 obj.find(".retailPrice1").html(count * price2);
-
-                var sum1 = 0;
-                var sum2 = 0;
-                $("#x1 tr").each(function (index,element) {
-                    sum1 += parseFloat($(this).find("td:eq(9)").html());
-                    sum2 += parseFloat($(this).find("td:eq(10)").html());
-                })
-                $("#jine>span:eq(0)").html("采购金额合计：<span style='color: red;font-weight: bolder'>"+sum1+"</span>元");
-                $("#jine>span:eq(1)").html("零售金额合计：<span style='color: red;font-weight: bolder'>"+sum2+"</span>元");
+                sum();
             });
         }
+
+        function save() {
+            var n = 0;
+            $.ajax({
+                url: 'doAddInStock',
+                type: 'post',
+                data:$("form").serialize()+"&inStock.purchasePrice="+$("#p1").html()+"&inStock.price="+$("#p2").html()+"&inStock.makeOrderId=1",
+                success:function (data) {
+                    alert(data);
+                    n = data;
+                    $("#x1 tr").each(function (index,element) {
+                        $.ajax({
+                            url:'addInStockMedicine',
+                            data:{
+                                "inStockMedicine.inStockId":n,
+                                "inStockMedicine.medicineId":$(this).find("td:eq(0)").html(),
+                                "inStockMedicine.count":$(this).find("td:eq(4) input").val(),
+                                "inStockMedicine.lotNumber":$(this).find("td:eq(7) input").val(),
+                                "inStockMedicine.expirationDate":$(this).find("td:eq(8) input").val(),
+                                "inStockMedicine.purchasePrice":$(this).find("td:eq(9)").html(),
+                                "inStockMedicine.price":$(this).find("td:eq(10)").html()
+                            }
+                        });
+                    });
+                    location.href="http://localhost:8080/Clinic/inStock"
+                }
+            });
+        }
+
+        function sum() {
+            var sum1 = 0;
+            var sum2 = 0;
+            $("#x1 tr").each(function (index,element) {
+                sum1 += parseFloat($(this).find("td:eq(9)").html());
+                sum2 += parseFloat($(this).find("td:eq(10)").html());
+            })
+            $("#jine>span:eq(0)").html("采购金额合计：<span style='color: red;font-weight: bolder' id='p1'>"+sum1+"</span>元");
+            $("#jine>span:eq(1)").html("零售金额合计：<span style='color: red;font-weight: bolder' id='p2'>"+sum2+"</span>元");
+        }
+
     </script>
     <style>
         .jumbotron ul{
@@ -146,22 +182,22 @@
         </div>
     </div>
 </nav>
+
 <div class="container">
     <div class="jumbotron">
         <form>
             <ul>
                 <li>
                     <label class="control-label">入库单号:</label>
-                    <input type="text" class="form-control" name="inStockVO.name" style="width: 150px;">
+                    <input type="text" class="form-control" name="inStock.inStockNo" style="width: 150px;">
                 </li>
                 <li>
                     <label class="control-label">入库日期:</label>
-                    <input type="date" name="medicineVO.startCreateTime" class="form-control" style="width: 150px;">
+                    <input type="date" name="inStock.createDate" class="form-control" style="width: 150px;">
                 </li>
                 <li>
                     <label class="control-label">入库人员:</label>
-                    <select class="form-control" style="width: 150px;" name="medicineVO.medicineStatus">
-                        <option value="">全部</option>
+                    <select class="form-control" style="width: 150px;" name="inStock.employeeId">
                         <s:iterator value="#request.employeeList" var="employee">
                             <option value="${employee.id}">${employee.eName}</option>
                         </s:iterator>
@@ -169,8 +205,7 @@
                 </li>
                 <li>
                     <label class="control-label">入库类型:</label>
-                    <select class="form-control" style="width: 150px;" name="medicineVO.medicineStatus">
-                        <option value="">全部</option>
+                    <select class="form-control" style="width: 150px;" name="inStock.type">
                         <s:iterator value="#request.inStockTypeList" var="inStockType">
                             <option value="${inStockType.id}">${inStockType.typeName}</option>
                         </s:iterator>
@@ -180,8 +215,7 @@
             <ul>
                 <li>
                     <label class="control-label">供应商:</label>
-                    <select class="form-control" style="width: 150px;" name="medicineVO.medicineStatus">
-                        <option value="">全部</option>
+                    <select class="form-control" style="width: 150px;" name="inStock.manufacturerId">
                         <s:iterator value="#request.manufacturerList" var="manufacturer">
                             <option value="${manufacturer.id}">${manufacturer.name}</option>
                         </s:iterator>
@@ -189,18 +223,18 @@
                 </li>
                 <li>
                     <label class="control-label">制单日期:</label>
-                    <input type="date" name="medicineVO.startCreateTime" class="form-control" style="width: 150px;">
+                    <input type="date" name="inStock.createDate" class="form-control" style="width: 150px;">
                 </li>
                 <li>
                     <label class="control-label">制单人员:</label>
-                    <input type="text" class="form-control" name="inStockVO.name" style="width: 150px;">
+                    <input type="text" class="form-control" style="width: 150px;" value="王冕">
                 </li>
                 <li>
                     <label class="control-label">备注:</label>
-                    <input type="text" class="form-control" name="inStockVO.name" style="width: 150px;">
+                    <input type="text" class="form-control" name="inStock.mark" style="width: 150px;">
                 </li>
             </ul>
-        </form>
+</form>
     </div>
 </div>
 <table class="table table-striped">
@@ -257,7 +291,6 @@
                                         data-loading-text="Loading...">查询
                                 </button>
                             </div>
-                        </form>
                     </div>
 
 
@@ -293,6 +326,10 @@
 <div id="jine">
     <span style="font-size: 18px;display: inline-block;margin-right: 30px">采购金额合计：<span style='color: red;font-weight: bolder'>0</span>元</span>
     <span style="font-size: 18px">采购金额合计：<span style='color: red;font-weight: bolder'>0</span>元</span>
+</div>
+<div style="padding-top: 20px;padding-left: 20px">
+    <button type="button" class="btn btn-primary" onclick="history.back()" style="margin-right: 10px">返回</button>
+    <button type="button" class="btn btn-primary" onclick="save()">提交审核</button>
 </div>
 </body>
 </html>

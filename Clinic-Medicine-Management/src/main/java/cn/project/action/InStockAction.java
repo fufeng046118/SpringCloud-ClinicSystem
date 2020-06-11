@@ -7,6 +7,7 @@ import cn.project.service.InStockService;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.RequestAware;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,51 @@ public class InStockAction extends ActionSupport implements RequestAware {
     private Map<String,Object> request;
     private InStockService inStockService;
     private InStockVO inStockVO;
+    private InStock inStock;
+    private InStockMedicine inStockMedicine;
+    private Long num;
+    private int status;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Long getNum() {
+        return num;
+    }
+
+    public void setNum(Long num) {
+        this.num = num;
+    }
+
+    public InStockMedicine getInStockMedicine() {
+        return inStockMedicine;
+    }
+
+    public void setInStockMedicine(InStockMedicine inStockMedicine) {
+        this.inStockMedicine = inStockMedicine;
+    }
+
+    public InStock getInStock() {
+        return inStock;
+    }
+
+    public void setInStock(InStock inStock) {
+        this.inStock = inStock;
+    }
 
     public void setInStockService(InStockService inStockService) {
         this.inStockService = inStockService;
@@ -71,11 +117,36 @@ public class InStockAction extends ActionSupport implements RequestAware {
         return SUCCESS;
     }
 
-    //新增入库记录
-    public String addInStock(){
+    //去新增入库记录
+    public String toAddInStock(){
         request.put("employeeList",inStockService.getAllEmployee());
         request.put("inStockTypeList",inStockService.getInStockType());
         request.put("manufacturerList",inStockService.getAllManufacturer());
         return SUCCESS;
     }
+
+    //做新增入库
+    public String doAddInStock(){
+        inStock.setStatusId(1);
+        inStockService.addInStock(inStock);
+        num = inStock.getId();
+        return SUCCESS;
+    }
+
+    //新增入库的药品详细信息
+    public String addInStockMedicine(){
+        inStockService.addInStockMedicine(inStockMedicine);
+        if(inStockMedicine.getId() > 0){
+            inStockService.updateMedicineStock(inStockMedicine.getMedicineId(),inStockMedicine.getCount());
+        }
+        return SUCCESS;
+    }
+
+    //改变审核状态
+    public String updateStatus(){
+        inStockService.updateStatus(id,status,new Date(),3);
+        return SUCCESS;
+    }
+
+
 }

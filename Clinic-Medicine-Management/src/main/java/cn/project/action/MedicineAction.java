@@ -14,7 +14,6 @@ public class MedicineAction extends ActionSupport{
     private static final long serialVersionUID = 1L;
     private MedicineService medicineService;
     private List<Medicine> medicineList;
-    //private Map<String, Object> jsonResult;
     private MedicineVO medicineVO;
 
     public List<Medicine> getMedicineList() {

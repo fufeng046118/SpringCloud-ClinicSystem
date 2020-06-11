@@ -9,7 +9,7 @@ $(function () {
         $(".pagination>li:last").addClass("disabled").find("a").attr("href","javascript:void(0)");
     }
     $(".pagination li:eq("+pageNo+")").addClass("active");
-    $("#myButtons3 .btn").click(function(){
+    $("#myButtons3 .btn:first").click(function(){
         $(this).button('loading').delay(1000).queue(function() {
             $(this).button('reset');
             $(this).dequeue();

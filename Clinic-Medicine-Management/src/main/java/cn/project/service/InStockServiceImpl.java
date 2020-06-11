@@ -2,11 +2,12 @@ package cn.project.service;
 
 import cn.project.dao.InStockDao;
 import cn.project.entity.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
 public class InStockServiceImpl implements InStockService {
     private InStockDao inStockDao;
 
@@ -67,5 +68,25 @@ public class InStockServiceImpl implements InStockService {
     @Override
     public List<Employee> getAllEmployee() {
         return inStockDao.getAllEmployee();
+    }
+
+    @Override
+    public int addInStock(InStock inStock) {
+        return inStockDao.addInStock(inStock);
+    }
+
+    @Override
+    public int addInStockMedicine(InStockMedicine inStockMedicine) {
+        return inStockDao.addInStockMedicine(inStockMedicine);
+    }
+
+    @Override
+    public int updateStatus(int inStockId, int statusId, Date date, int auditId) {
+        return inStockDao.updateStatus(inStockId, statusId,date,auditId);
+    }
+
+    @Override
+    public int updateMedicineStock(int id, Long count) {
+        return inStockDao.updateMedicineStock(id,count);
     }
 }

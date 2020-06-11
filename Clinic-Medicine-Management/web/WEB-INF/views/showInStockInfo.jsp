@@ -76,10 +76,13 @@
             <li style="width: 200px;margin-left: 30px">制单人员：${request.inStock.makeOrder.eName}</li>
             <li style="width: 200px">入库备注：${request.inStock.mark}</li>
         </ul>
-        <ul>
-            <li>审核日期：${request.inStock.auditDate}</li>
-            <li>审核人员：${request.inStock.audit.eName}</li>
-        </ul>
+        <s:if test="#request.inStock.statusId != 1">
+            <ul>
+                <li>审核日期：${request.inStock.auditDate}</li>
+                <li>审核人员：${request.inStock.audit.eName}</li>
+            </ul>
+        </s:if>
+
     </div>
 </div>
 <table class="table table-striped">
@@ -129,5 +132,13 @@
     <span style="font-size: 18px;display: inline-block;margin-right: 30px"></span>
     <span style="font-size: 18px"></span>
 </div>
+
+    <div style="padding-top: 20px;padding-left: 20px">
+        <button type="button" class="btn btn-primary" onclick="history.back()" style="margin-right: 10px">返回</button>
+        <s:if test="#request.inStock.statusId == 1">
+            <button type="button" class="btn btn-primary" onclick="location.href='updateStatus?id=${request.inStock.id}&status=2'" style="margin-right: 10px">审核通过</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='updateStatus?id=${request.inStock.id}&status=3'">审核不通过</button>
+        </s:if>
+    </div>
 </body>
 </html>

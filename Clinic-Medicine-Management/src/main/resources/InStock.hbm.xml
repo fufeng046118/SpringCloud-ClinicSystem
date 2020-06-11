@@ -5,7 +5,10 @@
 <hibernate-mapping>
 
     <class name="cn.project.entity.InStock" table="INSTOCK" schema="SCOTT">
-        <id name="id" column="ID" type="java.lang.Long"/>
+        <id name="id" column="ID" type="java.lang.Long">
+            <generator class="increment">
+            </generator>
+        </id>
         <property name="inStockNo" column="INSTOCKNO" type="java.lang.String"/>
         <property name="type" column="TYPE" type="int"/>
         <property name="employeeId" column="EMPLOYEEID" type="int"/>

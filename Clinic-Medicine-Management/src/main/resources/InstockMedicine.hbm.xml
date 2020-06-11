@@ -6,6 +6,8 @@
 
     <class name="cn.project.entity.InStockMedicine" table="INSTOCK_MEDICINE" schema="SCOTT">
         <id name="id" column="ID" type="java.lang.Long">
+            <generator class="increment">
+            </generator>
         </id>
         <property name="inStockId" column="INSTOCKID" type="int">
         </property>

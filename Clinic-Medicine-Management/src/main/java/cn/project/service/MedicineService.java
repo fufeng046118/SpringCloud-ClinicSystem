@@ -8,4 +8,5 @@ import java.util.Map;
 
 public interface MedicineService {
     List<Medicine> getAllMedicineByMap(Map<String,Object> map);
+
 }

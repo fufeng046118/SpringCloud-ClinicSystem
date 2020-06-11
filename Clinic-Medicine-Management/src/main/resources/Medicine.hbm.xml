@@ -12,13 +12,13 @@
         <property name="barCode" type="string" column="BARCODE" />
         <property name="medicineName" type="string" column="MEDICINENAME" />
         <property name="pinYinCode" type="string" column="PINYINCODE" />
-        <many-to-one name="manufacturer" class="cn.project.entity.Manufacturer" column="MANUFACTURERID" lazy="false"/>
+        <many-to-one name="manufacturer" class="cn.project.entity.Manufacturer" column="MANUFACTURERID" insert="false" update="false"/>
         <property name="medicineSpecifications" type="string" column="MEDICINESPECIFICATIONS" />
         <property name="medicineStatus" type="int" column="MEDICINESTATUS" />
         <property name="medicineDescription" type="string" column="MEDICINEDESCRIPTION" />
         <property name="purchasePrice" type="double" column="PURCHASEPRICE"/>
         <property name="retailPrice"  type="double" column="RETAILPRICE"/>
         <property name="createTime"  type="java.util.Date" column="CREATETIME"/>
-        <many-to-one name="prescriptionType" class="cn.project.entity.PrescriptionType" column="PRESCRIPTIONTYPEID" lazy="false"/>
+        <many-to-one name="prescriptionType" class="cn.project.entity.PrescriptionType" column="PRESCRIPTIONTYPEID" insert="false" update="false"/>
     </class>
 </hibernate-mapping>

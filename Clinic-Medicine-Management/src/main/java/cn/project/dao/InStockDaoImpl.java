@@ -5,7 +5,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -91,6 +93,29 @@ public class InStockDaoImpl implements InStockDao {
         return getSession().createQuery("from Employee").list();
     }
 
+    @Override
+    public int addInStock(InStock inStock) {
+        getSession().save(inStock);
+        return 1;
+    }
+
+    @Override
+    public int addInStockMedicine(InStockMedicine inStockMedicine) {
+        getSession().save(inStockMedicine);
+        return 1;
+    }
+
+    @Override
+    public int updateStatus(int inStockId, int statusId, Date date,int auditId) {
+        Long id = new Long(inStockId);
+        InStock inStock = getSession().get(InStock.class, id);
+        inStock.setStatusId(statusId);
+        inStock.setAuditId(auditId);
+        inStock.setAuditDate(date);
+        getSession().update(inStock);
+        return 1;
+    }
+
     private StringBuffer common(Map<String,Object> map,List<Object> list){
         StringBuffer hql = new StringBuffer("");
         if(map.get("statusId") != null && !"".equals(map.get("statusId"))){
@@ -107,5 +132,11 @@ public class InStockDaoImpl implements InStockDao {
             list.add("%"+map.get("name")+"%");
         }
         return hql;
+    }
+
+    @Override
+    public int updateMedicineStock(int id, Long count) {
+        String hql = "update Medicine set stock = stock+"+count+" where id = "+id;
+        return getSession().createQuery(hql).executeUpdate();
     }
 }

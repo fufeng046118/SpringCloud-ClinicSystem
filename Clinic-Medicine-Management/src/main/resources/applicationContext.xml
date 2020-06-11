@@ -53,7 +53,6 @@
 
 
     <!--  bean  -->
-    <bean class="cn.project.entity.Medicine" id="medicine" scope="prototype"></bean>
     <bean class="cn.project.entity.vo.MedicineVO" id="medicineVO" scope="prototype"></bean>
 
     <bean class="cn.project.dao.MedicineDaoImpl" id="medicineDao">
@@ -76,8 +75,8 @@
     <bean class="cn.project.service.InStockServiceImpl" id="inStockService">
         <property name="inStockDao" ref="inStockDao"/>
     </bean>
-    <bean class="cn.project.entity.vo.InStockVO" id="inStockVO"></bean>
-    <bean class="cn.project.action.InStockAction" id="inStockAction">
+    <bean class="cn.project.entity.vo.InStockVO" id="inStockVO" scope="prototype"></bean>
+    <bean class="cn.project.action.InStockAction" id="inStockAction" scope="prototype">
         <property name="inStockService" ref="inStockService"/>
         <property name="inStockVO" ref="inStockVO"/>
     </bean>
