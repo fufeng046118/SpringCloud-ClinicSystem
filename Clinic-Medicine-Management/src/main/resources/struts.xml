@@ -21,6 +21,11 @@
                 <param name="root">num</param>
             </result>
         </action>
+        <action name="reInStock" class="cn.project.action.InStockAction" method="reInStock">
+            <result type="json" name="success">
+                <param name="root">num</param>
+            </result>
+        </action>
     </package>
 
     <package name="inStock" extends="struts-default">

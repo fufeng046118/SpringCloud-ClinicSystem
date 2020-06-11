@@ -89,4 +89,13 @@ public class InStockServiceImpl implements InStockService {
     public int updateMedicineStock(int id, Long count) {
         return inStockDao.updateMedicineStock(id,count);
     }
+
+    @Override
+    public int reInStock(int inStockId) {
+        List<InStockMedicine> medicineList = inStockDao.getAllInStockMedicineById(inStockId);
+        medicineList.forEach(inStockMedicine -> {
+            inStockDao.updateMedicineStock(inStockMedicine.getMedicineId(),inStockMedicine.getCount());
+        });
+        return 1;
+    }
 }

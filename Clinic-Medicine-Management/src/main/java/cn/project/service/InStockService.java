@@ -18,4 +18,5 @@ public interface InStockService {
     int addInStockMedicine(InStockMedicine inStockMedicine);
     int updateStatus(int inStockId, int statusId, Date date, int auditId);
     int updateMedicineStock(int id, Long count);
+    int reInStock(int inStockId);
 }

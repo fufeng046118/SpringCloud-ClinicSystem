@@ -18,6 +18,9 @@
     <script src="js/common.js"></script>
     <script src="js/component.js"></script>
     <script>
+        $(function () {
+            $("#tiShi").hide();
+        })
         function del(id) {
             Ewin.confirm({ message: "确认要删除选择的数据吗？" }).on(function (e) {
                 if (!e) {
@@ -26,9 +29,18 @@
                 location.href="http://localhost:8080/Clinic/deleteInStockById?inStockVO.inStockId="+id;
             });
         }
+        function reInStock(id) {
+            $.ajax({
+                url:'reInStock?inStockVO.inStockId='+id,
+                success:function () {
+                    $("#tiShi").show();
+                }
+            });
+        }
     </script>
 </head>
 <body>
+<div class="alert alert-success" id="tiShi">成功！很好地完成了提交。</div>
 <%-- 导航栏--%>
 <nav class="navbar navbar-default" role="navigation" style="margin-bottom: 50px">
     <div class="container-fluid">
@@ -152,7 +164,7 @@
                                     <li class="divider"></li>
                                     <li><a href="javascript:void(0)" onclick="del(${inStock.id})">删除</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="javascript:void(0)">再次入库</a></li>
+                                    <li><a href="javascript:void(0)" onclick="reInStock(${inStock.id})">再次入库</a></li>
                                 </ul>
                             </div>
                         </td>

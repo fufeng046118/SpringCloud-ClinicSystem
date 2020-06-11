@@ -148,5 +148,11 @@ public class InStockAction extends ActionSupport implements RequestAware {
         return SUCCESS;
     }
 
+    //再次入库
+    public String reInStock(){
+        inStockService.reInStock(inStockVO.getInStockId());
+        return SUCCESS;
+    }
+
 
 }

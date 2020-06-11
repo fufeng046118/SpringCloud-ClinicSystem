@@ -42,6 +42,7 @@
             <tx:method name="delete*"/>
             <tx:method name="update*"/>
             <tx:method name="add*"/>
+            <tx:method name="re*"/>
         </tx:attributes>
     </tx:advice>
 
