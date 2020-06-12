@@ -34,18 +34,14 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        Operations<b class="caret"></b>
+                        其他管理<b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="#">入库管理</a></li>
                         <li class="divider"></li>
                         <li><a href="#">出库管理</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">库存管理</a></li>
-                        <li class="divider"></li>
                         <li><a href="#">库存盘点</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">药品调价</a></li>
                     </ul>
                 </li>
             </ul>

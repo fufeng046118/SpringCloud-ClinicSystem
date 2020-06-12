@@ -26,6 +26,11 @@
                 <param name="root">num</param>
             </result>
         </action>
+        <action name="delInStock" class="cn.project.action.InStockAction" method="delInStock">
+            <result type="json" name="success">
+                <param name="root">num</param>
+            </result>
+        </action>
     </package>
 
     <package name="inStock" extends="struts-default">
@@ -41,8 +46,8 @@
         <action name="toAddInStock" class="cn.project.action.InStockAction" method="toAddInStock">
             <result name="success">/WEB-INF/views/addInStockInfo.jsp</result>
         </action>
-        <action name="updateStatus" class="cn.project.action.InStockAction" method="updateStatus">
-            <result name="success" type="redirect">inStock</result>
+        <action name="toUpdateStatus" class="cn.project.action.InStockAction" method="toUpdateStatus">
+            <result name="success">/WEB-INF/views/modifiyStockInfo.jsp</result>
         </action>
     </package>
 </struts>

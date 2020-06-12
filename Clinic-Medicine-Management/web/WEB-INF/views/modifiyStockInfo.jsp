@@ -16,6 +16,12 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         $(function () {
+            $("[name=count]").on("blur",function () {
+                xiaoJi($(this));
+            });
+            $(".remove").on('click',function () {
+                remove($(this))
+            });
             $("#btn_add").click(function () {
                 $("#myModalLabel").text("选择药品");
                 $('#myModal').modal();
@@ -26,9 +32,11 @@
                 sum();
             });
 
+
             $("#myButtons3").click(function () {
                 medicineList($("[name=name]").val(),$("[name=prescriptionTypeId]").val());
-            })
+            });
+            sum();
             medicineList("","");
             function medicineList(name,prescriptionTypeId) {
                 $.ajax({
@@ -77,11 +85,11 @@
                     "        <td>盒</td>\n"+
                     "        <td class='purchasePrice'>"+obj.find("td:eq(6)").html()+"</td>\n" +
                     "        <td class='retailPrice'>"+obj.find("td:eq(7)").html()+"</td>\n" +
-                    "        <td><input type=\"text\" class=\"form-control\" name=\"inStockVO.name\" style=\"width: 110px;\"></td>\n" +
-                    "        <td><input type=\"date\" name=\"medicineVO.startCreateTime\" class=\"form-control\" style=\"width: 150px;\"></td>\n" +
+                    "        <td><input type=\"text\" class=\"form-control\" style=\"width: 110px;\"></td>\n" +
+                    "        <td><input type=\"date\" class=\"form-control\" style=\"width: 150px;\"></td>\n" +
                     "        <td class='purchasePrice1'>"+obj.find("td:eq(6)").html()+"</td>\n" +
                     "        <td class='retailPrice1'>"+obj.find("td:eq(7)").html()+"</td>\n" +
-                     "       <td><img src='img/remove.jpg' width='20px' height='20px' class='remove'></td>"
+                    "        <td><img src='img/remove.jpg' width='20px' height='20px' class='remove'></td>"
                     "    </tr>";
             });
             $("#x1").append(html);
@@ -92,6 +100,7 @@
                 remove($(this))
             });
         }
+
         function remove(node) {
             node.parent().parent().remove();
             sum();
@@ -105,32 +114,38 @@
             obj.find(".retailPrice1").html(count * price2);
             sum();
         }
-        function save() {
-            var n = 0;
+
+        function save(status,inStockId) {
             $.ajax({
-                url: 'doAddInStock',
-                type: 'post',
-                data:$("form").serialize()+"&inStock.purchasePrice="+$("#p1").html()+"&inStock.price="+$("#p2").html()+"&inStock.makeOrderId=1&inStock.statusId=1",
-                success:function (data) {
-                    n = data;
-                    $("#x1 tr").each(function (index,element) {
-                        $.ajax({
-                            url:'addInStockMedicine',
-                            data:{
-                                "inStockMedicine.inStockId":n,
-                                "inStockMedicine.medicineId":$(this).find("td:eq(0)").html(),
-                                "inStockMedicine.count":$(this).find("td:eq(4) input").val(),
-                                "inStockMedicine.lotNumber":$(this).find("td:eq(8) input").val(),
-                                "inStockMedicine.expirationDate":$(this).find("td:eq(9) input").val(),
-                                "inStockMedicine.purchasePrice":$(this).find("td:eq(10)").html(),
-                                "inStockMedicine.price":$(this).find("td:eq(11)").html(),
-                                "inStock.statusId":0
-                            }
-                        });
+                url:'delInStock?inStockVO.inStockId='+inStockId,
+                success:function () {
+                    var n = 0;
+                    $.ajax({
+                        url: 'doAddInStock',
+                        type: 'post',
+                        data:$("form").serialize()+"&inStock.purchasePrice="+$("#p1").html()+"&inStock.price="+$("#p2").html()+"&inStock.makeOrderId=1&inStock.auditId=1&inStock.statusId="+status,
+                        success:function (data) {
+                            n = data;
+                            $("#x1 tr").each(function (index,element) {
+                                $.ajax({
+                                    url:'addInStockMedicine',
+                                    data:{
+                                        "inStockMedicine.inStockId":n,
+                                        "inStockMedicine.medicineId":$(this).find("td:eq(0)").html(),
+                                        "inStockMedicine.count":$(this).find("td:eq(4) input").val(),
+                                        "inStockMedicine.lotNumber":$(this).find("td:eq(8) input").val(),
+                                        "inStockMedicine.expirationDate":$(this).find("td:eq(9) input").val(),
+                                        "inStockMedicine.purchasePrice":$(this).find("td:eq(10)").html(),
+                                        "inStockMedicine.price":$(this).find("td:eq(11)").html(),
+                                        "inStock.statusId":status
+                                    }
+                                });
+                            });
+                            location.href="http://localhost:8080/Clinic/inStock"
+                        }
                     });
-                    location.href="http://localhost:8080/Clinic/inStock"
                 }
-            });
+            })
         }
 
         function sum() {
@@ -160,23 +175,24 @@
 </head>
 <body>
 <%@ include file="common.jsp"%>
+
 <div class="container">
     <div class="jumbotron">
         <form>
             <ul>
                 <li>
                     <label class="control-label">入库单号:</label>
-                    <input type="text" class="form-control" name="inStock.inStockNo" style="width: 150px;">
+                    <input type="text" class="form-control" name="inStock.inStockNo" style="width: 150px;" value="${request.inStock.inStockNo}">
                 </li>
                 <li>
                     <label class="control-label">入库日期:</label>
-                    <input type="date" name="inStock.createDate" class="form-control" style="width: 150px;">
+                    <input type="date" name="inStock.createDate" class="form-control" style="width: 150px;" value="<s:date name="#request.inStock.createDate" format="yyyy-MM-dd" />">
                 </li>
                 <li>
                     <label class="control-label">入库人员:</label>
                     <select class="form-control" style="width: 150px;" name="inStock.employeeId">
                         <s:iterator value="#request.employeeList" var="employee">
-                            <option value="${employee.id}">${employee.eName}</option>
+                            <option value="${employee.id}" <s:if test="#request.inStock.employeeId == #employee.id">selected</s:if>>${employee.eName}</option>
                         </s:iterator>
                     </select>
                 </li>
@@ -184,7 +200,7 @@
                     <label class="control-label">入库类型:</label>
                     <select class="form-control" style="width: 150px;" name="inStock.type">
                         <s:iterator value="#request.inStockTypeList" var="inStockType">
-                            <option value="${inStockType.id}">${inStockType.typeName}</option>
+                            <option value="${inStockType.id}" <s:if test="#request.inStock.type == #inStockType.id">selected</s:if>>${inStockType.typeName}</option>
                         </s:iterator>
                     </select>
                 </li>
@@ -194,21 +210,21 @@
                     <label class="control-label">供应商:</label>
                     <select class="form-control" style="width: 150px;" name="inStock.manufacturerId">
                         <s:iterator value="#request.manufacturerList" var="manufacturer">
-                            <option value="${manufacturer.id}">${manufacturer.name}</option>
+                            <option value="${manufacturer.id}" <s:if test="#request.inStock.manufacturerId == #manufacturer.id">selected</s:if>>${manufacturer.name}</option>
                         </s:iterator>
                     </select>
                 </li>
                 <li>
                     <label class="control-label">制单日期:</label>
-                    <input type="date" name="inStock.createDate" class="form-control" style="width: 150px;">
+                    <input type="date" name="inStock.createDate" class="form-control" style="width: 150px;" value="<s:date name="#request.inStock.createDate" format="yyyy-MM-dd" />">
                 </li>
                 <li>
                     <label class="control-label">制单人员:</label>
-                    <input type="text" class="form-control" style="width: 150px;" value="王冕">
+                    <input type="text" class="form-control" style="width: 150px;" value="${request.inStock.makeOrder.eName}" disabled>
                 </li>
                 <li>
                     <label class="control-label">备注:</label>
-                    <input type="text" class="form-control" name="inStock.mark" style="width: 150px;">
+                    <input type="text" class="form-control" name="inStock.mark" style="width: 150px;" value="${request.inStock.mark}">
                 </li>
             </ul>
 </form>
@@ -229,10 +245,34 @@
         <td>药品有效期</td>
         <td>采购金额</td>
         <td>零售金额</td>
+        <td>操作</td>
     </tr>
     </thead>
     <tbody id="x1">
-        
+    <s:if test="#request.inStockMedicineList == null || #request.inStockMedicineList.size() == 0">
+        <tr>
+            <td colspan="12" align="center"><h2>没有该出库药品信息</h2></td>
+        </tr>
+    </s:if>
+    <s:else>
+        <s:iterator value="#request.inStockMedicineList" var="inStockMedicine">
+            <tr>
+                <td>${inStockMedicine.medicine.id}</td>
+                <td>${inStockMedicine.medicine.medicineNo}</td>
+                <td>${inStockMedicine.medicine.medicineName}</td>
+                <td>${inStockMedicine.medicine.manufacturer.name}</td>
+                <td><input type="text" class="form-control jiSuan" name="count" style="width: 70px;" value="${inStockMedicine.count}"></td>
+                <td>盒</td>
+                <td class="purchasePrice">${inStockMedicine.medicine.purchasePrice}</td>
+                <td class="retailPrice">${inStockMedicine.medicine.retailPrice}</td>
+                <td><input type="text" class="form-control" style="width: 110px;" value="${inStockMedicine.lotNumber}"></td>
+                <td><input type="date" class="form-control" style="width: 150px;" value="<s:date name="#inStockMedicine.expirationDate" format="yyyy-MM-dd" />"></td>
+                <td class="purchasePrice1">${inStockMedicine.purchasePrice}</td>
+                <td class="retailPrice1">${inStockMedicine.price}</td>
+                <td><img src='img/remove.jpg' width='20px' height='20px' class="remove"></td>
+            </tr>
+        </s:iterator>
+    </s:else>
     </tbody>
 </table>
 <div align="center">
@@ -306,8 +346,9 @@
     <span style="font-size: 18px">采购金额合计：<span style='color: red;font-weight: bolder'>0</span>元</span>
 </div>
 <div style="padding-top: 20px;padding-left: 20px">
-    <button type="button" class="btn btn-primary" onclick="history.back()" style="margin-right: 10px">返回</button>
-    <button type="button" class="btn btn-primary" onclick="save()">提交审核</button>
+    <button type="button" class="btn btn-primary" onclick="history.back()" style="margin-right: 20px">返回</button>
+    <button type="button" class="btn btn-primary" onclick="save(2,${request.inStock.id})" style="margin-left: 20px">审核通过</button>
+    <button type="button" class="btn btn-primary" onclick="save(3,${request.inStock.id})">审核不通过</button>
 </div>
 </body>
 </html>

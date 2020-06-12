@@ -33,48 +33,37 @@
             $.ajax({
                 url:'reInStock?inStockVO.inStockId='+id,
                 success:function () {
-                    $("#tiShi").show();
+                    /*$("#tiShi").show();*/
+                    $('.tips').html('入库成功').addClass('alert-success').fadeIn().delay(1500).fadeOut();
                 }
             });
         }
     </script>
+    <style>
+        .tips{
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 200px;
+            max-width: 700px;
+            transform: translate(-50%,-50%);
+            z-index: 99999;
+            text-align: center;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .tips-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+    </style>
 </head>
 <body>
-<div class="alert alert-success" id="tiShi">成功！很好地完成了提交。</div>
-<%-- 导航栏--%>
-<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 50px">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#example-navbar-collapse">
-                <span class="sr-only">切换导航</span>
-                <span class="icon-bar">ss</span>
-                <span class="icon-bar">s</span>
-                <span class="icon-bar">ss</span>
-            </button>
-            <a class="navbar-brand" href="medicine">入库管理</a>
-        </div>
-        <div class="collapse navbar-collapse" id="example-navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        其他管理<b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">入库管理</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">出库管理</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">库存盘点</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
-
+<div class="tips"></div><!-- 提示框 -->
+<%@ include file="common.jsp"%>
 <%-- 搜索栏 --%>
 <div style="height: 90px;margin-left: 290px">
     <form role="form" action="inStock" method="post">
@@ -160,11 +149,13 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><s:if test="#inStock.statusId == 1"><a href="showInStockInfoById?inStockVO.inStockId=${inStock.id}">编辑</a></s:if><s:else><a href="showInStockInfoById?inStockVO.inStockId=${inStock.id}">查看</a></s:else></li>
+                                    <li><s:if test="#inStock.statusId == 1"><a href="toUpdateStatus?inStockVO.inStockId=${inStock.id}">编辑</a></s:if><s:else><a href="showInStockInfoById?inStockVO.inStockId=${inStock.id}">查看</a></s:else></li>
                                     <li class="divider"></li>
                                     <li><a href="javascript:void(0)" onclick="del(${inStock.id})">删除</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="javascript:void(0)" onclick="reInStock(${inStock.id})">再次入库</a></li>
+                                    <s:if test="#inStock.statusId == 2">
+                                        <li class="divider"></li>
+                                        <li><a href="javascript:void(0)" onclick="reInStock(${inStock.id})">再次入库</a></li>
+                                    </s:if>
                                 </ul>
                             </div>
                         </td>

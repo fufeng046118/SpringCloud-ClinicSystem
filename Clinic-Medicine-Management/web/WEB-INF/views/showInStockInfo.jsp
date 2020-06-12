@@ -28,40 +28,7 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 50px">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#example-navbar-collapse">
-                <span class="sr-only">切换导航</span>
-                <span class="icon-bar">ss</span>
-                <span class="icon-bar">s</span>
-                <span class="icon-bar">ss</span>
-            </button>
-            <a class="navbar-brand" href="medicine">入库管理</a>
-        </div>
-        <div class="collapse navbar-collapse" id="example-navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        Operations<b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">入库管理</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">出库管理</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">库存管理</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">库存盘点</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">药品调价</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<%@ include file="common.jsp"%>
 <div class="container">
     <div class="jumbotron">
         <ul>
@@ -76,13 +43,10 @@
             <li style="width: 200px;margin-left: 30px">制单人员：${request.inStock.makeOrder.eName}</li>
             <li style="width: 200px">入库备注：${request.inStock.mark}</li>
         </ul>
-        <s:if test="#request.inStock.statusId != 1">
-            <ul>
-                <li>审核日期：${request.inStock.auditDate}</li>
-                <li>审核人员：${request.inStock.audit.eName}</li>
-            </ul>
-        </s:if>
-
+        <ul>
+            <li>审核日期：${request.inStock.auditDate}</li>
+            <li>审核人员：${request.inStock.audit.eName}</li>
+        </ul>
     </div>
 </div>
 <table class="table table-striped">
@@ -132,13 +96,5 @@
     <span style="font-size: 18px;display: inline-block;margin-right: 30px"></span>
     <span style="font-size: 18px"></span>
 </div>
-
-    <div style="padding-top: 20px;padding-left: 20px">
-        <button type="button" class="btn btn-primary" onclick="history.back()" style="margin-right: 10px">返回</button>
-        <s:if test="#request.inStock.statusId == 1">
-            <button type="button" class="btn btn-primary" onclick="location.href='updateStatus?id=${request.inStock.id}&status=2'" style="margin-right: 10px">审核通过</button>
-            <button type="button" class="btn btn-primary" onclick="location.href='updateStatus?id=${request.inStock.id}&status=3'">审核不通过</button>
-        </s:if>
-    </div>
 </body>
 </html>
