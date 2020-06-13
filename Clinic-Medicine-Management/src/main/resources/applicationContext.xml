@@ -46,11 +46,11 @@
         </tx:attributes>
     </tx:advice>
 
-    <aop:config proxy-target-class="true">
+    <aop:cn.project.config proxy-target-class="true">
         <aop:pointcut id="allServices"
                       expression="execution(* cn.project.service.*.*(..))"/>
         <aop:advisor advice-ref="transactionInterceptor" pointcut-ref="allServices"/>
-    </aop:config>
+    </aop:cn.project.config>
 
 
     <!--  bean  -->
