@@ -49,6 +49,7 @@ public class WxPaymentController {
             String resultCode = r.get("result_code");
             if (resultCode.equals("SUCCESS")) {
                 result.put("codeUrl", r.get("code_url"));
+                System.out.println("二维码-->"+r.get("code_url"));
                 String icon = WxPaymentController.class.getClassLoader().getResource("coffee_icon.png").getPath();
                 BufferedImage bufferedImage = MatrixToImageWriterWithLogo.genBarcode(r.get("code_url"), 512, 512, icon); // 二维码的内容，宽，高，二维码中心的图片地址
                 ImageIO.write(bufferedImage, "jpg", response.getOutputStream());
