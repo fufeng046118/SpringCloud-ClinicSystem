@@ -14,8 +14,8 @@
 	<bean class="cn.project.config.AlipayConfig">
 		<property name="appID" value="2016102100731990"/>
 		<property name="rsaPrivateKey" value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDCQtRbLQ6DJx5i0W0+BfcqA/23/FVKGIK96d63G7Za2xFrP/3aDu/HyXXbEfFzMa0pvrLHpEb++8PLgc9H36+m2NdIKRByaqDKyKUYkawQt74QMAbk2A9voJv6mnc03BaT52g4d5Kdu+aGFyGPod+yENCWo1h++C5baiRrtcDlo8HYvWAsk9Pn9aLR8kuDlsOutQvjLNTt6EMvWGDO7qtbx/Bu/4SGn/xBm58pdcAxGRBbTm1WDW6lTfH+xcGjKo251UTi9AtLRJVut035p7OQRNEa8myKVhnHYjwIZdl7znkz0yJhIFm0DmkNSrFSQdy/dMkM/eitATnzzoR0sivPAgMBAAECggEAM4gY3wrnw6DX7azShtZ8R3gBkRHt6hbwb8KfYwGF8ToVt9ak13iI4P2vNuremwk9f0poEI+iibdtrAmGW/GZne/9w9Wo2EEy4Dgzm33hIBot4AtteL1b8uevGN5q6unLT3bebcRCb3dN4po2O+zb81eEjcFNE3lwiq1wdeYkAoZj0BQvRhjs2J4Yieu5IS8NR77mN9dNAcFjgj677CpEoEXsrGHM3DchC5ebzY1YIg5b4hOem4HKtUyki7FBHkZO+jcBkRbt1pAtRu6vwa7P6uKMlWA6edZeU8vgVYmJGJMQykjxc/8xKZ0kiZzzFDw92Kr6allEn5GGkSrrrzmBYQKBgQD/9m+IIhURFW/03IQIukAEjNWLHqTEBjGYu34umqscDfKcy7UzoBUMRsJq3/7kt+dh3LAMp9QH7AC2p/Ftz6V1pFHtOU+mjm4xAmIK9D6v4SjclOqsXwx8UoI+jeqGe5xCScgr1ZcMo2gOTua635iqvuYAasRxgzz1Skqodyg1nwKBgQDCShaanhHPH+8j3T9yw1QHwrrhsZZK/uozXAIogGuo8pZGCrbPCZ5e+8vE197wzfXpkPWDG0YxxSpGr/6IdiesPiAzL8SZUIhKm6kr3hIJpvlUOYFmG6MGX0UXp2zmFy4WBwLxDatbv8JQzsXJos7cjWh/Inygzw5wD+/10QV70QKBgQC4BWeoGsDEmIH2K/ftAmJ2Iv5/15cjq0RLBzkvrlkogUqUucvbgtK/EbxC9CmgLCt46x3S63IABAd7SoDDrw7I5ktUXujJ2QqVx53PPEw5TIqBE7soE+m5E+S5rnQXHZV4/uyfvx6qomx0JPuzDIAI+dgIIrp61ZykyTWlqo1JBwKBgHzV19I+8FhyP1h+5y6Y/JwD7cnoLhY/1kFrw+M8KHCkdhPI/I7osj57cQEoZxG4dGI/htBXrPF7qt9CY7xQlssgG9Znwd10li3B+J+8D0DubVNFo7P02/nTKvS42cq5aB41IRm7W7gW7Qa45PLazil+Hn9ZrFQy1icAxoDebbSRAoGANos7NC26Mc5DEUz6JWlp7cZc6ZBFv83lAKNITQ4NSnO3coUFUCbL000My1G9oCA4ETRU6PjuMv1Ev68dDvp4Q4m6zRu2ZcCKCs0Cws0u1Ss4JrT/8jNX9lrHMFrwLrd2NSJLhv11gq1dqEHsz40UNxuHw7aF8oi1lHDaHDALqOw="/>
-		<property name="notifyUrl" value="http://hat738.natappfree.cc/api/notify"/>
-		<property name="returnUrl" value="http://hat738.natappfree.cc/api/return"/>
+		<property name="notifyUrl" value="http://ku4gnb.natappfree.cc/api/notify"/>
+		<property name="returnUrl" value="http://ku4gnb.natappfree.cc/api/return"/>
 		<property name="url" value="https://openapi.alipaydev.com/gateway.do"/>
 		<property name="charset" value="UTF-8"/>
 		<property name="format" value="json"/>
@@ -23,7 +23,7 @@
 		<property name="logPath" value="/logs"/>
 		<property name="signType" value="RSA2"/>
 		<!-- <property name="paymentSuccessUrl" value="/itriptrade/success.html"/> -->
-		<property name="paymentSuccessUrl" value="http://localhost:9010/api/index"/>
-		<property name="paymentFailureUrl" value="http://localhost:9010/api/index"/>
+		<property name="paymentSuccessUrl" value="http://localhost:63342/qianduan/static/paySuccess.html?_ijt=kev6qodg99s6gri8ebi447fbji"/>
+		<property name="paymentFailureUrl" value="http://localhost:63342/qianduan/static/paySuccess.html?_ijt=kev6qodg99s6gri8ebi447fbji"/>
 	</bean>
 </beans>

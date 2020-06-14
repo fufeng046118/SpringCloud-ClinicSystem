@@ -7,6 +7,7 @@
     <modules>
         <module>Medicine-API</module>
         <module>BasicData-API</module>
+        <module>Trade-API</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

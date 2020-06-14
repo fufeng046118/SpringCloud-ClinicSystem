@@ -1,12 +1,15 @@
 package cn.project.controller;
 
+import cn.project.bean.OrderInfo;
 import cn.project.config.AlipayConfig;
+import cn.project.service.OrderService;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.domain.AlipayTradeWapPayModel;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradeWapPayRequest;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -31,15 +34,19 @@ import java.util.Map;
 public class AliPaymentController {
 	@Resource
 	private AlipayConfig alipayConfig;
+	@Resource
+	private OrderService orderService;
 
 	@RequestMapping(value = "/prepay/{orderNo}", method = RequestMethod.GET)
 	public String prePay(@PathVariable String orderNo, ModelMap model) {
+		QueryWrapper<OrderInfo> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("orderNo",orderNo);
+		OrderInfo order = orderService.getOne(queryWrapper);
 		try {
-				model.addAttribute("hotelName", "入库管理");
-				model.addAttribute("roomId", "100000");
-				model.addAttribute("count", 1000);
-				model.addAttribute("payAmount", 2000);
-				model.addAttribute("orderNo","xedyhxiw82665383851651685skjhfufeng");
+				model.addAttribute("name", "诊所管理系统");
+				model.addAttribute("count", 1);
+				model.addAttribute("payAmount", order.getAmount());
+				model.addAttribute("orderNo",orderNo);
 				return "pay";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -53,15 +60,8 @@ public class AliPaymentController {
 			@RequestParam String WIDout_trade_no,
 			@RequestParam String WIDsubject,
 			@RequestParam String WIDtotal_amount, HttpServletResponse response) {
-		//System.out.println(WIDout_trade_no+","+WIDsubject+","+WIDtotal_amount);
-		// 超时时间 可空
-		System.out.println(WIDout_trade_no);
 		String timeout_express = "2m";
-		// 销售产品码 必填
 		String product_code = "QUICK_WAP_PAY";
-		/**********************/
-		// SDK 公共请求类，包含公共请求参数，以及封装了签名与验签，开发者无需关注签名与验签
-		// 调用RSA签名方式
 		AlipayClient client = new DefaultAlipayClient(alipayConfig.getUrl(),
 				alipayConfig.getAppID(), alipayConfig.getRsaPrivateKey(),
 				alipayConfig.getFormat(), alipayConfig.getCharset(),
@@ -141,10 +141,37 @@ public class AliPaymentController {
 					alipayConfig.getAlipayPublicKey(), alipayConfig.getCharset(), "RSA2");
 
 			if (verify_result) {// 验证成功
+				if (trade_status.equals("TRADE_FINISHED")) {
+					// 判断该笔订单是否在商户网站中已经做过处理
+					// 如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
+					// 请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
+					// 如果有做过处理，不执行商户的业务程序
+					QueryWrapper<OrderInfo> queryWrapper = new QueryWrapper<>();
+					queryWrapper.eq("orderNo",out_trade_no);
+					OrderInfo order = orderService.getOne(queryWrapper);
+					if(order != null && order.getStatus() != 1){
+						order.setStatus(1);
+						orderService.updateById(order);
+					}
+					// 注意：
+					// 如果签约的是可退款协议，退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
+					// 如果没有签约可退款协议，那么付款完成后，支付宝系统发送该交易状态通知。
+				} else if (trade_status.equals("TRADE_SUCCESS")) {
+					// 判断该笔订单是否在商户网站中已经做过处理
+					// 如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
+					// 请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
+					// 如果有做过处理，不执行商户的业务程序
+					QueryWrapper<OrderInfo> queryWrapper = new QueryWrapper<>();
+					queryWrapper.eq("orderNo",out_trade_no);
+					OrderInfo order = orderService.getOne(queryWrapper);
+					if(order != null && order.getStatus() != 1){
+						order.setStatus(1);
+						orderService.updateById(order);
+					}
+					// 注意：
+					// 如果签约的是可退款协议，那么付款完成后，支付宝系统发送该交易状态通知。
+				}
 				response.getWriter().println("success"); // 请不要修改或删除
-				// ////////////////////////////////////////////////////////////////////////////////////////
-				// 请在这里加上商户的业务逻辑程序代码
-				// ////////////////////////////////////////////////////////////////////////////////////////
 			} else {// 验证失败
 				//orderService.payFailed(out_trade_no, 1,trade_no);
 				response.getWriter().println("fail");
@@ -221,10 +248,5 @@ public class AliPaymentController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	@GetMapping("/index")
-	public String index(){
-		return "hello-wprd";
 	}
 }

@@ -144,15 +144,15 @@
 <div id="main">
         <form name=alipayment action='/api/pay' method="post">
             <input type="hidden" name="WIDout_trade_no" th:value="${orderNo}">
-            <input type="hidden" name="WIDsubject" th:value="${hotelName}">
+            <input type="hidden" name="WIDsubject" th:value="${name}">
             <input type="hidden" name="WIDtotal_amount" th:value="${payAmount}">
             <div id="body" style="clear:left">
                 <dl class="content">
                     <dt>订单编号：</dt>
                     <dd th:text="${orderNo}"></dd>
                     <hr class="one_line">
-                    <dt>酒店名称：</dt>
-                    <dd th:text="${hotelName}"></dd>
+                    <dt>收费方：</dt>
+                    <dd th:text="${name}"></dd>
                     <hr class="one_line">
                     <dt>付款金额：</dt>
                     <dd th:text="${payAmount}"></dd>

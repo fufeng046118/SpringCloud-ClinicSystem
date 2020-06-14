@@ -22,6 +22,15 @@ public class Prescription implements Serializable {
     private Integer employeeId;
     @ApiModelProperty(hidden = true)
     private Date date;
+    private int orderId;
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
 
     public Integer getId() {
         return id;
