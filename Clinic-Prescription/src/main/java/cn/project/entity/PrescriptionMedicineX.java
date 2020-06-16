@@ -130,7 +130,7 @@ public class PrescriptionMedicineX implements Serializable {
     }
 
     public Long getUnitPrice() {
-        return unitPrice/100;
+        return unitPrice;
     }
 
     public void setUnitPrice(Long unitPrice) {

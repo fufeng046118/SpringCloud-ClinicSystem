@@ -74,4 +74,10 @@ public class MedicineController {
     public Response abc(String name){
         return new Response(ResponseEnum.SUCCESS).setResponseBody("hello:"+name);
     }
+
+    @PostMapping("/updateMedicineStock/{id}")
+    public Response updateMedicineStock(@PathVariable int id,@RequestParam int stock){
+        medicineService.updateMedicine(id,stock);
+        return new Response(ResponseEnum.SUCCESS);
+    }
 }

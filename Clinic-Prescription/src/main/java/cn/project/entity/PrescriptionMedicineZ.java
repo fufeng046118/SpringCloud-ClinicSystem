@@ -142,7 +142,7 @@ public class PrescriptionMedicineZ implements Serializable {
     }
 
     public Long getUnitPrice() {
-        return unitPrice/100;
+        return unitPrice;
     }
 
     public void setUnitPrice(Long unitPrice) {
@@ -150,7 +150,7 @@ public class PrescriptionMedicineZ implements Serializable {
     }
 
     public Long getAmount() {
-        return amount/100;
+        return amount;
     }
 
     public void setAmount(Long amount) {

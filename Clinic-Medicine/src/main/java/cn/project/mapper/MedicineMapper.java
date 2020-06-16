@@ -18,4 +18,5 @@ public interface MedicineMapper {
     @Cacheable(key = "targetClass+':'+methodName+':'+ # itemTypeId + # nameOrPinYin+':'+# nameOrPinYin +':'+ # pageNo +':'+ # pageSize")
     List<CheckItem> getAllCheckItem(@Param("itemTypeId") Integer itemTypeId, @Param("nameOrPinYin") String nameOrPinYin, @Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize);
     List<MedicineUsage> getMedicineUsage();
+    int updateMedicine(@Param("id")int id,@Param("stock") int stock);
 }

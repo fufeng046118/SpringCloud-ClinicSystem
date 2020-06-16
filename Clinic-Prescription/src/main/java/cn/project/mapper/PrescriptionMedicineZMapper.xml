@@ -7,4 +7,11 @@
         insert into prescription_chinesemedicineprescription(id,prescriptionId,chineseMedicinePrescriptionId)
         values (null,#{prescriptionId},#{prescriptionMedicineZId})
     </insert>
+
+    <select id="getAllPrescriptionMedicineZById" resultType="prescriptionMedicineZ">
+        select cn.*,mm.medicineName from chinesemedicineprescription cn
+        left join prescription_chinesemedicineprescription pc on cn.id = pc.chineseMedicinePrescriptionId
+        left join medicinedata.medicine mm on mm.id = cn.medicineId
+        where pc.prescriptionId=#{id}
+    </select>
 </mapper>

@@ -7,6 +7,7 @@
     <class name="cn.project.entity.OutstockMedicine" table="OUTSTOCK_MEDICINE" schema="SCOTT">
         <id name="id">
             <column name="ID" sql-type="number(11)" precision="11"/>
+            <generator class="increment"></generator>
         </id>
         <property name="outstockid">
             <column name="OUTSTOCKID" sql-type="number(11)" precision="11"/>
@@ -21,7 +22,7 @@
             <column name="LOTNUMBER" sql-type="varchar2(50)" length="50"/>
         </property>
         <property name="expirationdate">
-            <column name="EXPIRATIONDATE" sql-type="date" not-null="true"/>
+            <column name="EXPIRATIONDATE" sql-type="date" />
         </property>
         <property name="purchaseprice">
             <column name="PURCHASEPRICE" sql-type="float(*)" precision="2147483646" not-null="true"/>
@@ -29,5 +30,6 @@
         <property name="price">
             <column name="PRICE" sql-type="float(*)" precision="2147483646" not-null="true"/>
         </property>
+        <many-to-one name="medicine" class="cn.project.entity.Medicine" column="MEDICINEID" update="false" insert="false" lazy="false"></many-to-one>
     </class>
 </hibernate-mapping>

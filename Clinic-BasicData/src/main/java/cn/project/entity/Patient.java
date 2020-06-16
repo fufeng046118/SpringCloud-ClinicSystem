@@ -19,6 +19,16 @@ public class Patient implements Serializable {
     private String memberName;
     private String address;
     private String addressDetails;
+    private double balance;
+
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
 
     public String getMemberName() {
         return memberName;

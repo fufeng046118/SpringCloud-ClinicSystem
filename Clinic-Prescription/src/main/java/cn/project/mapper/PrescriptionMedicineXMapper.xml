@@ -7,4 +7,11 @@
         insert into prescription_westernmedicineprescription(id,prescriptionId,westernMedicinePrescriptionId)
         values (null,#{prescriptionId},#{prescriptionMedicineXId})
     </insert>
+
+    <select id="getAllPrescriptionMedicineXById" resultType="prescriptionMedicineX">
+        select cp.*,mm.medicineName from westernmedicineprescription cp
+        left join prescription_westernmedicineprescription pw on cp.id = pw.westernMedicinePrescriptionId
+        left join medicinedata.medicine mm on mm.id=cp.medicineId
+        where pw.prescriptionId=#{id}
+    </select>
 </mapper>

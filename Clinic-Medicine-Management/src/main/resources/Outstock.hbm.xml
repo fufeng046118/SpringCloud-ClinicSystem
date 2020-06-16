@@ -7,12 +7,10 @@
     <class name="cn.project.entity.Outstock" table="OUTSTOCK" schema="SCOTT">
         <id name="id">
             <column name="ID" sql-type="number(11)" precision="11"/>
+            <generator class="increment"></generator>
         </id>
         <property name="outstockno">
             <column name="OUTSTOCKNO" sql-type="varchar2(50)" length="50"/>
-        </property>
-        <property name="type">
-            <column name="TYPE" sql-type="number(11)" precision="11"/>
         </property>
         <property name="employeeid">
             <column name="EMPLOYEEID" sql-type="number(11)" precision="11"/>
@@ -30,13 +28,27 @@
             <column name="STATUSID" sql-type="number(11)" precision="11"/>
         </property>
         <property name="auditid">
-            <column name="AUDITID" sql-type="number(11)" precision="11" not-null="true"/>
+            <column name="AUDITID" sql-type="number(11)" precision="11"/>
         </property>
         <property name="auditdate">
-            <column name="AUDITDATE" sql-type="date" not-null="true"/>
+            <column name="AUDITDATE" sql-type="date"/>
         </property>
         <property name="mark">
-            <column name="MARK" sql-type="varchar2(50)" length="50" not-null="true"/>
+            <column name="MARK" sql-type="varchar2(50)" length="50"/>
         </property>
+        <property name="typeid">
+            <column name="TYPEID" sql-type="number(11)" precision="11"/>
+        </property>
+        <property name="manufacturerid">
+            <column name="MANUFACTURERID" sql-type="number(11)" precision="11"/>
+        </property>
+        <property name="outdate">
+            <column name="OUTDATE" sql-type="date"/>
+        </property>
+        <many-to-one name="audit" class="cn.project.entity.Employee" column="AUDITID" update="false" insert="false"></many-to-one>
+        <many-to-one name="manufacturer" class="cn.project.entity.Manufacturer" column="MANUFACTURERID" update="false" insert="false"></many-to-one>
+        <many-to-one name="makeorder" class="cn.project.entity.Employee" column="MAKEORDERID" update="false" insert="false"></many-to-one>
+        <many-to-one name="employee" class="cn.project.entity.Employee" column="EMPLOYEEID" update="false" insert="false"></many-to-one>
+        <many-to-one name="outstocktype" class="cn.project.entity.Outstocktype" column="TYPEID" update="false" insert="false"></many-to-one>
     </class>
 </hibernate-mapping>

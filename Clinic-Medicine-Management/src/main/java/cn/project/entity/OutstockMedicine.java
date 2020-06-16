@@ -2,6 +2,7 @@ package cn.project.entity;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -12,9 +13,33 @@ public class OutstockMedicine {
     private long medicineid;
     private long count;
     private String lotnumber;
-    private Time expirationdate;
+    private Date expirationdate;
     private Double purchaseprice;
     private Double price;
+    private Medicine medicine;
+
+    public Medicine getMedicine() {
+        return medicine;
+    }
+
+    @Override
+    public String toString() {
+        return "OutstockMedicine{" +
+                "id=" + id +
+                ", outstockid=" + outstockid +
+                ", medicineid=" + medicineid +
+                ", count=" + count +
+                ", lotnumber='" + lotnumber + '\'' +
+                ", expirationdate=" + expirationdate +
+                ", purchaseprice=" + purchaseprice +
+                ", price=" + price +
+                ", medicine=" + medicine +
+                '}';
+    }
+
+    public void setMedicine(Medicine medicine) {
+        this.medicine = medicine;
+    }
 
     @Id
     @Column(name = "ID", nullable = false, precision = 0)
@@ -68,11 +93,11 @@ public class OutstockMedicine {
 
     @Basic
     @Column(name = "EXPIRATIONDATE", nullable = true)
-    public Time getExpirationdate() {
+    public Date getExpirationdate() {
         return expirationdate;
     }
 
-    public void setExpirationdate(Time expirationdate) {
+    public void setExpirationdate(Date expirationdate) {
         this.expirationdate = expirationdate;
     }
 

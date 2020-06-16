@@ -53,4 +53,10 @@ public class MedicineServiceImpl implements MedicineService {
         return medicineMapper.getMedicineUsage();
 
     }
+
+    @Override
+    public int updateMedicine(int id, int stock) {
+        System.out.println(id+","+stock);
+        return medicineMapper.updateMedicine(id, stock);
+    }
 }

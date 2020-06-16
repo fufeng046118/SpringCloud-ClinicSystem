@@ -20,4 +20,9 @@ public class MedicineFeignFallback implements MedicineFeign {
     public Response getMedicineUsage() {
         return  new Response(ResponseEnum.SUCCESS).setResponseBody("服务未能正常响应");
     }
+
+    @Override
+    public Response updateMedicineStock(int id, int stock) {
+        return new Response(ResponseEnum.SUCCESS).setResponseBody("服务未能正常响应");
+    }
 }

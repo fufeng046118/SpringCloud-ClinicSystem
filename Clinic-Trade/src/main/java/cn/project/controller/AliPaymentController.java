@@ -232,8 +232,7 @@ public class AliPaymentController {
 				//String id=orderService.loadItripHotelOrder(out_trade_no).getId().toString();
 				//提示支付成功
                 //System.out.println("------------------->"+String.format(alipayConfig.getPaymentSuccessUrl(), out_trade_no,id));
-				response.sendRedirect(
-						String.format(alipayConfig.getPaymentSuccessUrl(),null));
+				response.sendRedirect(alipayConfig.getPaymentSuccessUrl());
 			}else{				
 				//提示支付失败
 				response.sendRedirect(alipayConfig.getPaymentFailureUrl());

@@ -42,4 +42,9 @@
     <select id="getMedicineUsage" resultType="medicineUsage">
         select * from medicineusage
     </select>
+
+    <update id="updateMedicine">
+        update medicine set stock = stock - #{stock}
+        where id = #{id}
+    </update>
 </mapper>

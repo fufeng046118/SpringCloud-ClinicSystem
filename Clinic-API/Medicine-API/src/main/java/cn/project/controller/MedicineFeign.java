@@ -19,4 +19,7 @@ public interface MedicineFeign {
 
     @GetMapping("medicine/getMedicineUsage")
     public Response getMedicineUsage();
+
+    @PostMapping("medicine/updateMedicineStock/{id}")
+    public Response updateMedicineStock(@PathVariable int id,@RequestParam int stock);
 }

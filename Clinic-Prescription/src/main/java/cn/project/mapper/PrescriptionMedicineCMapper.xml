@@ -7,4 +7,11 @@
         insert into prescription_checkitemprescription(id,prescriptionId,checkItemPrescriptionId)
         values (null,#{prescriptionId},#{prescriptionMedicineCId})
     </insert>
+
+    <select id="getAllPrescriptionMedicineCById" resultType="prescriptionMedicineC">
+        select cp.*,mc.itemName as checkItemName from checkitemprescription cp
+        left join prescription_checkitemprescription pc on cp.id = pc.checkItemPrescriptionId
+        left join medicinedata.checkitem mc on mc.id = cp.checkItemId
+        where pc.prescriptionId=#{id}
+    </select>
 </mapper>

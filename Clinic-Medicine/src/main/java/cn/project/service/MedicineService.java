@@ -11,4 +11,5 @@ public interface MedicineService {
     PageInfo<Medicine> getAllMedicine(Integer prescriptionTypeId, Integer medicineTypeId, String nameOrPinYin, Integer pageNo, Integer pageSize);
     PageInfo<CheckItem> getAllCheckItem(Integer itemTypeId, String nameOrPinYin, Integer pageNo, Integer pageSize);
     List<MedicineUsage> getMedicineUsage();
+    int updateMedicine(int id,int stock);
 }

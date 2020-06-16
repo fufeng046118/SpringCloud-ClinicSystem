@@ -54,4 +54,10 @@ public class APIMedicineController {
     public Response getMedicineUsage(){
         return medicineFeign.getMedicineUsage();
     }
+
+    @PostMapping("/updateMedicineStock/{id}")
+    public Response updateMedicineStock(@PathVariable int id,@RequestParam int stock){
+        medicineFeign.updateMedicineStock(id, stock);
+        return new Response();
+    }
 }

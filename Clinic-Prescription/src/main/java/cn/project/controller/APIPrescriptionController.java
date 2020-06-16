@@ -16,6 +16,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @Api(tags = "处方接口")
@@ -72,4 +74,27 @@ public class APIPrescriptionController {
         return new Response(ResponseEnum.SUCCESS);
     }
 
+    @GetMapping("/getAllPrescriptionMedicineC/{id}")
+    public Object getAllPrescriptionMedicineC(@PathVariable int id){
+        Map<String,Object> map = new HashMap<>();
+        map.put("data",prescriptionMedicineCService.getAllPrescriptionMedicineCById(id));
+        map.put("code","0");
+        return map;
+    }
+
+    @GetMapping("/getAllPrescriptionMedicineZ/{id}")
+    public Object getAllPrescriptionMedicineZ(@PathVariable int id){
+        Map<String,Object> map = new HashMap<>();
+        map.put("data",prescriptionMedicineZService.getAllPrescriptionMedicineZById(id));
+        map.put("code","0");
+        return map;
+    }
+
+    @GetMapping("/getAllPrescriptionMedicineX/{id}")
+    public Object getAllPrescriptionMedicineX(@PathVariable int id){
+        Map<String,Object> map = new HashMap<>();
+        map.put("data",prescriptionMedicineXService.getAllPrescriptionMedicineXById(id));
+        map.put("code","0");
+        return map;
+    }
 }
