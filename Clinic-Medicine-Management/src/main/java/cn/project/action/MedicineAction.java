@@ -1,7 +1,7 @@
 package cn.project.action;
 
 import cn.project.entity.Medicine;
-import cn.project.entity.vo.MedicineVO;
+import cn.project.entity.vo.MedicineVO1;
 import cn.project.service.MedicineService;
 import cn.project.service.MedicineServiceImpl;
 import com.opensymphony.xwork2.Action;
@@ -14,7 +14,7 @@ public class MedicineAction extends ActionSupport{
     private static final long serialVersionUID = 1L;
     private MedicineService medicineService;
     private List<Medicine> medicineList;
-    private MedicineVO medicineVO;
+    private MedicineVO1 medicineVO;
 
     public List<Medicine> getMedicineList() {
         return medicineList;
@@ -24,11 +24,11 @@ public class MedicineAction extends ActionSupport{
         this.medicineList = medicineList;
     }
 
-    public MedicineVO getMedicineVO() {
+    public MedicineVO1 getMedicineVO() {
         return medicineVO;
     }
 
-    public void setMedicineVO(MedicineVO medicineVO) {
+    public void setMedicineVO(MedicineVO1 medicineVO) {
         this.medicineVO = medicineVO;
     }
 

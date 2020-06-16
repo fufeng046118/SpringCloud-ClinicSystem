@@ -9,7 +9,6 @@
                 <span class="icon-bar">s</span>
                 <span class="icon-bar">ss</span>
             </button>
-            <a class="navbar-brand" href="medicine">入库管理</a>
         </div>
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav">
@@ -18,11 +17,11 @@
                         其他管理<b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">入库管理</a></li>
+                        <li><a href="inStock">入库管理</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">出库管理</a></li>
+                        <li><a href="outstock">出库管理</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">库存盘点</a></li>
+                        <li><a href="findinventory">库存盘点</a></li>
                     </ul>
                 </li>
             </ul>

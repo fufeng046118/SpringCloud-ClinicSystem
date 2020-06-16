@@ -19,6 +19,7 @@
         <property name="purchasePrice" type="double" column="PURCHASEPRICE"/>
         <property name="retailPrice"  type="double" column="RETAILPRICE"/>
         <property name="createTime"  type="java.util.Date" column="CREATETIME"/>
+        <property name="stock" column="STOCK" type="java.lang.Long"/>
         <many-to-one name="prescriptionType" class="cn.project.entity.PrescriptionType" column="PRESCRIPTIONTYPEID" insert="false" update="false"/>
     </class>
 </hibernate-mapping>

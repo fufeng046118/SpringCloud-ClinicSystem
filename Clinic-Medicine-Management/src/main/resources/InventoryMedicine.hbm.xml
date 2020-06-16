@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="cn.project.entity.InventoryMedicine" table="INVENTORY_MEDICINE" schema="SCOTT">
+        <id name="id">
+            <column name="ID" sql-type="number(11)" precision="11"/>
+        </id>
+        <property name="medicineid">
+            <column name="MEDICINEID" sql-type="number(11)" precision="11" not-null="true"/>
+        </property>
+        <property name="inventoryid">
+            <column name="INVENTORYID" sql-type="number(11)" precision="11" not-null="true"/>
+        </property>
+        <property name="nowstock">
+            <column name="NOWSTOCK" sql-type="number(11)" precision="11" not-null="true"/>
+        </property>
+        <property name="inventorystock">
+            <column name="INVENTORYSTOCK" sql-type="number(11)" precision="11" not-null="true"/>
+        </property>
+        <property name="difference">
+            <column name="DIFFERENCE" sql-type="number(11)" precision="11" not-null="true"/>
+        </property>
+        <property name="mark">
+            <column name="MARK" sql-type="varchar2(50)" length="50" not-null="true"/>
+        </property>
+        <many-to-one name="medicine" class="cn.project.entity.Medicine" column="MEDICINEID" update="false" insert="false" lazy="false"></many-to-one>
+    </class>
+</hibernate-mapping>

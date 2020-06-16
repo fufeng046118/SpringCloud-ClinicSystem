@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="cn.project.entity.Inventory" table="INVENTORY" schema="SCOTT">
+        <id name="id">
+            <column name="ID" sql-type="number(*)" precision="2147483646"/>
+        </id>
+        <property name="inventoryno">
+            <column name="INVENTORYNO" sql-type="varchar2(50)" length="50" not-null="true"/>
+        </property>
+        <property name="inventorydate">
+            <column name="INVENTORYDATE" sql-type="date"/>
+        </property>
+        <property name="employeeid">
+            <column name="EMPLOYEEID" sql-type="number(11)" precision="11"/>
+        </property>
+        <property name="status">
+            <column name="STATUS" sql-type="number(11)" precision="11" not-null="true"/>
+        </property>
+        <many-to-one name="employee" class="cn.project.entity.Employee" column="EMPLOYEEID" update="false" insert="false"></many-to-one>
+    </class>
+</hibernate-mapping>

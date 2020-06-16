@@ -42,7 +42,9 @@
             <tx:method name="delete*"/>
             <tx:method name="update*"/>
             <tx:method name="add*"/>
+            <tx:method name="del*"/>
             <tx:method name="re*"/>
+            <tx:method name="find*"/>
         </tx:attributes>
     </tx:advice>
 
@@ -54,7 +56,7 @@
 
 
     <!--  bean  -->
-    <bean class="cn.project.entity.vo.MedicineVO" id="medicineVO" scope="prototype"></bean>
+    <bean class="cn.project.entity.vo.MedicineVO1" id="medicineVO" scope="prototype"></bean>
 
     <bean class="cn.project.dao.MedicineDaoImpl" id="medicineDao">
         <property name="sessionFactory" ref="sessionFactory"></property>
@@ -81,4 +83,27 @@
         <property name="inStockService" ref="inStockService"/>
         <property name="inStockVO" ref="inStockVO"/>
     </bean>
+
+
+
+<!--    outStock  -->
+    <bean id="outstockVo" scope="prototype" class="cn.project.entity.vo.OutstockVo"/>
+    <bean id="medicineVo" scope="prototype" class="cn.project.entity.vo.MedicineVO2"/>
+    <bean id="outstockMedicine" scope="prototype" class="cn.project.entity.OutstockMedicine"/>
+    <bean id="outstock" scope="prototype" class="cn.project.entity.Outstock"></bean>
+    <bean id="inventoryMedicineVo" scope="prototype" class="cn.project.entity.vo.InventoryMedicineVo"/>
+    <bean id="inventoryController" class="cn.project.action.InventoryController">
+        <property name="inventoryMedicineVo" ref="inventoryMedicineVo"/>
+        <property name="inventoryVo" ref="inventoryVo"/>
+        <property name="medicineVo" ref="medicineVo"/>
+    </bean>
+
+    <bean id="inventoryVo" scope="prototype" class="cn.project.entity.vo.InventoryVo"/>
+    <bean id="outStockController" class="cn.project.action.OutStockController">
+        <property name="outstockVo" ref="outstockVo"></property>
+        <property name="medicineVo" ref="medicineVo"></property>
+        <property name="outstockMedicine" ref="outstockMedicine"></property>
+        <property name="outstock" ref="outstock"></property>
+    </bean>
+    <context:component-scan base-package="cn.project.dao,cn.project.service,cn.project.action"/>
 </beans>

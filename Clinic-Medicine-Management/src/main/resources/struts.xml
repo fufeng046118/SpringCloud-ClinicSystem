@@ -5,6 +5,7 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
+    <!--入库异步-->
     <package name="json" extends="json-default">
         <action name="medicine" class="medicineAction" method="list">
             <result type="json" name="success">
@@ -31,7 +32,44 @@
                 <param name="root">num</param>
             </result>
         </action>
+
+        <!-- 出库异步 -->
+        <action name="findmedicine" class="cn.project.action.OutStockController" method="findMedicine">
+            <result name="findMedicine" type="json">
+                <param name="root">medicines</param>
+            </result>
+        </action>
+        <action name="addoutstock" class="cn.project.action.OutStockController" method="addOutstock">
+            <result name="comeid" type="json">
+                <param name="root">outstockid</param>
+            </result>
+        </action>
+        <action name="addoutstockmedicine" class="cn.project.action.OutStockController" method="addOutstockMedicine">
+            <result name="addOutstockMedicine" type="json">
+                <param name="root">outstockid</param>
+            </result>
+        </action>
+        <action name="updateoutstock1" class="cn.project.action.OutStockController" method="updateOutStock1">
+            <result name="updateOutStock1" type="json">
+                <param name="root">outstockid</param>
+            </result>
+        </action>
+        <action name="updateoutstock2" class="cn.project.action.OutStockController" method="updateOutStock2">
+            <result name="updateOutStock2" type="json">
+                <param name="root">outstockid</param>
+            </result>
+        </action>
+
+        <!-- 盘点异步 -->
+        <action name="updateinventorydetail" class="cn.project.action.InventoryController" method="updateInventoryDetail">
+            <result name="updateInventoryDetail" type="json">
+                <param name="root">updateId</param>
+            </result>
+        </action>
     </package>
+
+
+
 
     <package name="inStock" extends="struts-default">
         <action name="inStock" class="inStockAction" method="getAllInStock">
@@ -50,4 +88,42 @@
             <result name="success">/WEB-INF/views/modifiyStockInfo.jsp</result>
         </action>
     </package>
+
+    <!--出库-->
+    <package name="medicine" extends="struts-default">
+        <action name="outstock" class="cn.project.action.OutStockController" method="findOutStock">
+            <result name="outStock">/WEB-INF/views/OutStockIndex.jsp</result>
+        </action>
+        <action name="outstockdetail" class="cn.project.action.OutStockController" method="findOutStockDetail">
+            <result name="outStockDetail">/WEB-INF/views/OutStockDetail.jsp</result>
+        </action>
+        <action name="deloutstock" class="cn.project.action.OutStockController" method="delOutStock">
+            <result name="delTooutStock" type="redirect">outstock</result>
+        </action>
+        <action name="toaddoutstock" class="cn.project.action.OutStockController" method="toaddOutStock">
+            <result name="toaddOutStock">/WEB-INF/views/OutStockAdd.jsp</result>
+        </action>
+        <action name="toupdateoutstock" class="cn.project.action.OutStockController" method="toUpdateOutStock">
+            <result name="toUpdateOutStock">/WEB-INF/views/OutStockUpdate.jsp</result>
+        </action>
+        <action name="addagainoutstock" class="cn.project.action.OutStockController" method="addAgainOutStock">
+            <result name="addAgainOutStock" type="redirect">outstock</result>
+        </action>
+    </package>
+
+
+    <!-- 盘点  -->
+    <package name="inventory" extends="struts-default">
+        <action name="findinventory" class="cn.project.action.InventoryController" method="findInventory">
+            <result name="findInventory">/WEB-INF/views/InventoryIndex.jsp</result>
+        </action>
+        <action name="toinventorydetailbyinfo" class="cn.project.action.InventoryController" method="toInventoryDetailByInfo">
+            <result name="toInventoryDetailByInfo">/WEB-INF/views/InventoryDetail.jsp</result>
+            <result name="toUpdateInventoryDetail">/WEB-INF/views/InventoryUpdateDetail.jsp</result>
+        </action>
+        <action name="delinventory" class="cn.project.action.InventoryController" method="delInventory">
+            <result name="delInventory" type="redirect">findinventory</result>
+        </action>
+    </package>
+
 </struts>
