@@ -31,6 +31,7 @@
         <mybatisplus.version>3.3.0</mybatisplus.version>
         <swagger.version>2.9.2</swagger.version>
         <jjwt.version>0.9.1</jjwt.version>
+        <docker.image.prefix>docker</docker.image.prefix>
     </properties>
 
     <dependencies>
@@ -76,4 +77,35 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <!-- springboot打包 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+
+                <configuration>
+                    <!-- 镜像名称  -->
+                    <imageName>${docker.image.prefix}/uaa</imageName>
+                    <!-- docker远程服务器地址 -->
+                    <dockerHost>http://192.168.43.125:2375</dockerHost>
+                    <!-- Dockerfile文件存放目录 -->
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

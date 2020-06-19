@@ -1,5 +1,5 @@
 spring:
   cloud:
     config:
-      uri: http://clinic:8080
+      uri: http://192.168.43.125:8080
       profile: dev

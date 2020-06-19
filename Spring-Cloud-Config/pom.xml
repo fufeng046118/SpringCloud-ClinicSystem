@@ -41,6 +41,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -57,7 +65,7 @@
 
                 <configuration>
                     <!-- 镜像名称  -->
-                    <imageName>${docker.image.prefix}/spring-cloud-cn.project.config</imageName>
+                    <imageName>${docker.image.prefix}/spring-cloud-config</imageName>
                     <!-- docker远程服务器地址 -->
                     <dockerHost>http://192.168.43.125:2375</dockerHost>
                     <!-- Dockerfile文件存放目录 -->

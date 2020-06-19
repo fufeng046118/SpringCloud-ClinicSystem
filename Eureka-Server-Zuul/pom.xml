@@ -73,7 +73,7 @@
 
                 <configuration>
                     <!-- 镜像名称  -->
-                    <imageName>${docker.image.prefix}/eureka-server-cluster1</imageName>
+                    <imageName>${docker.image.prefix}/eureka-server-zuul2</imageName>
                     <!-- docker远程服务器地址 -->
                     <dockerHost>http://192.168.43.125:2375</dockerHost>
                     <!-- Dockerfile文件存放目录 -->

@@ -8,7 +8,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @MapperScan(basePackages = "cn.project.mapper")
-@EnableCaching
 @EnableDiscoveryClient
 public class BasicDataApplication {
     public static void main(String[] args) {

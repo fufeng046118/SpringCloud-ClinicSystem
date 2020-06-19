@@ -8,9 +8,7 @@ import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
-@CacheConfig(cacheNames = "c2")
 public interface AdditionalFeesMapper {
-    @Cacheable(key = "targetClass+':'+methodName")
     List<AdditionalFees> getAllAdditionalFees();
     int addAdditionalFees(@Param("p") Prescription_AdditionalFees prescription_additionalFees);
 }

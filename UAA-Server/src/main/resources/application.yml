@@ -9,7 +9,7 @@ eureka:
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
   client:
     service-url:
-      defaultZone: http://root:123@clinic:7001/eureka/,http://root:123@clinic:7002/eureka/,http://root:123@clinic:7003/eureka/
+      defaultZone: http://root:123@192.168.43.125:7001/eureka/,http://root:123@192.168.43.125:7002/eureka/
 logging:
   level:
     cn:

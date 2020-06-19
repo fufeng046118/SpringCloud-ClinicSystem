@@ -14,8 +14,8 @@
         <property name="appID" value="wxab8acb865bb1637e"/>
         <property name="mchID" value="11473623"/>
         <property name="key" value="2ab9071b06b9f739b950ddb41db2690d"/>
-        <property name="notifyUrl" value="http://yjrymp.natappfree.cc/api/wxpay/notify"/>
-        <property name="successUrl" value="http://yjrymp.natappfree.cc/api/wxpay/index"/>
+        <property name="notifyUrl" value="http://tis38e.natappfree.cc/api/wxpay/notify"/>
+        <property name="successUrl" value="http://tis38e.natappfree.cc/api/wxpay/index"/>
         <property name="failUrl" value="http://itrip.project.bdqn.cn/index.html#/orderpaystate?orderNo=%s&amp;id=%s&amp;state=0"/>
     </bean>
 

@@ -10,12 +10,10 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-@CacheConfig(cacheNames = "c1")
 public class MedicalAdviceServiceImpl implements MedicalAdviceService {
     @Resource
     MedicalAdviceMapper medicalAdviceMapper;
     @Override
-    @Cacheable(key = "targetClass+':'+methodName")
     public List<MedicalAdvice> getAllMedicalAdvice() {
         return medicalAdviceMapper.getAllMedicalAdvice();
     }

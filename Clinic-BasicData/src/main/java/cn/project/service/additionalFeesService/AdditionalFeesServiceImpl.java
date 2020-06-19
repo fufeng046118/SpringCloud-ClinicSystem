@@ -11,12 +11,10 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-@CacheConfig(cacheNames = "c1")
 public class AdditionalFeesServiceImpl implements AdditionalFeesService {
     @Resource
     AdditionalFeesMapper additionalFeesMapper;
     @Override
-    @Cacheable(key = "targetClass+':'+methodName")
     public List<AdditionalFees> getAllAdditionalFees() {
         return additionalFeesMapper.getAllAdditionalFees();
     }

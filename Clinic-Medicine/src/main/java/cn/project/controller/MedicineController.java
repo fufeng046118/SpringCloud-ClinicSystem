@@ -24,7 +24,7 @@ public class MedicineController {
 
     @PostMapping("getMedicines")
     @ApiOperation(value = "获取所有药品",notes = "根据药品类型、药瓶名称/拼音来筛选药品并进行分页显示")
-    public Response getMedicines (Integer prescriptionTypeId,Integer medicineTypeId,String nameOrPinYin,Integer pageNo,Integer pageSize){
+    public Response getMedicines (@RequestParam Integer prescriptionTypeId,@RequestParam(required = false) Integer medicineTypeId,@RequestParam(required = false) String nameOrPinYin,@RequestParam Integer pageNo,@RequestParam Integer pageSize){
         Map<String,Object> map = new HashMap<>();
         PageInfo<Medicine> pageInfo = new PageInfo<>();
         PageInfo<CheckItem> pageInfo1 = new PageInfo<>();

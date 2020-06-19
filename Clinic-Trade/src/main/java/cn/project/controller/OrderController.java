@@ -4,15 +4,24 @@ import cn.project.bean.OrderInfo;
 import cn.project.service.OrderService;
 import cn.project.util.Response;
 import cn.project.util.ResponseEnum;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("order")
+
 public class OrderController {
     @Resource
     OrderService orderService;
+    @Value("${spring.test}")
+    private String test;
+
+    @GetMapping("/test")
+    public String test(){
+        return test;
+    }
 
     @PostMapping("/addOrder")
     public Response addOrder(@RequestBody OrderInfo order){

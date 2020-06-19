@@ -20,7 +20,7 @@ public class Eureka_Server_Zuul {
         configuration.setAllowCredentials(true);
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
-        configuration.addAllowedOrigin("http://localhost:63342");
+        configuration.addAllowedOrigin("*");
 
         UrlBasedCorsConfigurationSource corsConfigurationSource=new UrlBasedCorsConfigurationSource();
         corsConfigurationSource.registerCorsConfiguration("/**",configuration);
